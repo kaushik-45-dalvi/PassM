@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { SignUp } from "@clerk/nextjs";
+import { SignUp, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
 import { Shield } from "lucide-react";
 
 export default function SignUpPage() {
@@ -50,12 +50,53 @@ export default function SignUpPage() {
         <span>VaultSync</span>
       </Link>
 
-      <div style={{ width: "100%", maxWidth: "440px", display: "flex", justifyContent: "center" }}>
-        <SignUp
-          forceRedirectUrl="/dashboard"
-          fallbackRedirectUrl="/dashboard"
-          signInUrl="/sign-in"
-        />
+      <div style={{ width: "100%", maxWidth: "440px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <ClerkLoading>
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              padding: "36px 24px",
+              background: "#FFFFFF",
+              border: "3px solid #000000",
+              borderRadius: "24px",
+              boxShadow: "6px 6px 0 #000000",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "14px"
+            }}
+          >
+            <div
+              style={{
+                width: "36px",
+                height: "36px",
+                borderRadius: "50%",
+                border: "3px solid #E2E8F0",
+                borderTopColor: "#16A34A",
+                animation: "spin 0.7s linear infinite"
+              }}
+            />
+            <p style={{ fontWeight: 800, color: "#000000", fontSize: "0.95rem" }}>
+              Loading Registration...
+            </p>
+            <style>{`
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            `}</style>
+          </div>
+        </ClerkLoading>
+
+        <ClerkLoaded>
+          <SignUp
+            forceRedirectUrl="/dashboard"
+            fallbackRedirectUrl="/dashboard"
+            signInUrl="/sign-in"
+          />
+        </ClerkLoaded>
       </div>
     </div>
   );
