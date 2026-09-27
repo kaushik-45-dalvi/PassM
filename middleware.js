@@ -3,22 +3,25 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
-export default clerkMiddleware(async (auth, req) => {
+const clerkHandler = clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
-    try {
-      const session = await auth();
-      if (!session || !session.userId) {
-        const signInUrl = new URL("/sign-in", req.url);
-        signInUrl.searchParams.set("redirect_url", req.url);
-        return NextResponse.redirect(signInUrl);
-      }
-    } catch (e) {
-      console.warn("Middleware auth check notice:", e.message);
-      return NextResponse.redirect(new URL("/sign-in", req.url));
-    }
+    await auth.protect();
   }
-  return NextResponse.next();
 });
+
+export default async function middleware(req, event) {
+  try {
+    return await clerkHandler(req, event);
+  } catch (error) {
+    console.error("Middleware execution notice:", error?.message || error);
+    if (req.nextUrl.pathname.startsWith("/dashboard")) {
+      const signInUrl = new URL("/sign-in", req.url);
+      signInUrl.searchParams.set("redirect_url", req.url);
+      return NextResponse.redirect(signInUrl);
+    }
+    return NextResponse.next();
+  }
+}
 
 export const config = {
   matcher: [
