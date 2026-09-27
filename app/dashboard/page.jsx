@@ -728,6 +728,13 @@ export default function DashboardPage() {
     }
   };
 
+  // Unauthenticated client-side redirect guard
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.replace('/sign-in');
+    }
+  }, [isLoaded, isSignedIn, router]);
+
   // Check Auth & Session Key on Mount (seamless restore, no flash redirects)
   useEffect(() => {
     if (!isLoaded || !isSignedIn || !user.id) return;
@@ -751,10 +758,24 @@ export default function DashboardPage() {
           }
         }
 
-        // 2. Fetch vault status from API
-        const res = await fetch('/api/vault');
-        if (!res.ok) throw new Error('Failed to query vault');
-        const data = await res.json();
+        // 2. Fetch vault status from API safely with 401 retry
+        let data = {};
+        try {
+          const res = await fetch('/api/vault');
+          if (res.ok) {
+            data = await res.json();
+          } else if (res.status === 401) {
+            // Give Clerk session cookie a moment to settle on fresh sign-in and retry once
+            await new Promise((r) => setTimeout(r, 600));
+            const retryRes = await fetch('/api/vault');
+            if (retryRes.ok) {
+              data = await retryRes.json();
+            }
+          }
+        } catch (fetchErr) {
+          console.warn('Vault fetch notice:', fetchErr);
+        }
+
         if (isCancelled) return;
 
         const hasVault = Boolean(data.hasMasterPassword || (data.items && data.items.length > 0) || data.verifier);
@@ -781,6 +802,7 @@ export default function DashboardPage() {
       } catch (err) {
         console.error('Init vault error:', err);
         setIsVaultLocked(true);
+        setIsSetupMode(true);
       } finally {
         if (!isCancelled) {
           setIsCheckingVaultStatus(false);
