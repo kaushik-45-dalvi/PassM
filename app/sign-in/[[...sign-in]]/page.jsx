@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import { SignIn } from "@clerk/nextjs";
 import { Shield } from "lucide-react";
@@ -27,7 +29,7 @@ export default function SignInPage() {
           color: "#000000",
           fontWeight: 900,
           fontSize: "1.35rem",
-          marginBottom: "28px"
+          marginBottom: "24px"
         }}
       >
         <div
@@ -48,57 +50,13 @@ export default function SignInPage() {
         <span>VaultSync</span>
       </Link>
 
-      <SignIn
-        routing="path"
-        path="/sign-in"
-        forceRedirectUrl="/dashboard"
-        fallbackRedirectUrl="/dashboard"
-        signUpUrl="/sign-up"
-        appearance={{
-          elements: {
-            rootBox: {
-              width: "100%",
-              maxWidth: "440px",
-            },
-            card: {
-              border: "3px solid #000000",
-              boxShadow: "8px 8px 0 #000000",
-              borderRadius: "26px",
-              background: "#FFFFFF",
-              padding: "28px 24px",
-            },
-            headerTitle: {
-              color: "#000000",
-              fontWeight: "900",
-              fontSize: "1.35rem",
-            },
-            headerSubtitle: {
-              color: "#475569",
-              fontSize: "0.88rem",
-            },
-            formButtonPrimary: {
-              background: "#000000",
-              color: "#FFFFFF",
-              borderRadius: "50px",
-              fontWeight: "800",
-              border: "2px solid #000000",
-              fontSize: "0.92rem",
-              boxShadow: "2px 2px 0 #000000",
-              transition: "all 0.15s ease",
-            },
-            formFieldInput: {
-              border: "2px solid #000000",
-              borderRadius: "12px",
-              fontSize: "0.92rem",
-            },
-            footerActionLink: {
-              color: "#000000",
-              fontWeight: "800",
-              textDecoration: "underline",
-            }
-          }
-        }}
-      />
+      <div style={{ width: "100%", maxWidth: "440px", display: "flex", justifyContent: "center" }}>
+        <SignIn
+          forceRedirectUrl="/dashboard"
+          fallbackRedirectUrl="/dashboard"
+          signUpUrl="/sign-up"
+        />
+      </div>
     </div>
   );
 }

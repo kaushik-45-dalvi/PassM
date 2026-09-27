@@ -52,10 +52,12 @@ export const metadata = {
   },
 };
 
+const defaultPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_cmVuZXdpbmctc3R1cmdlb24tMjQ3MC5jbGVyay5hY2NvdW50cy5kZXYk';
+
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider
-      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      publishableKey={defaultPublishableKey}
       signInUrl="/sign-in"
       signUpUrl="/sign-up"
       signInFallbackRedirectUrl="/dashboard"
