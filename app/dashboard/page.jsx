@@ -65,6 +65,14 @@ import {
 } from '../../lib/crypto/vaultCrypto';
 import CompanyLogo from '../components/CompanyLogo';
 import { resolveCompanyDomain } from '../../lib/utils/logoFetcher';
+import {
+  getVaultData,
+  saveVerifier,
+  addVaultItem,
+  updateVaultItem,
+  deleteVaultItem,
+  resetVault
+} from '../../lib/storage/clientVaultStorage';
 
 // Entropy & Password Strength Calculator
 function calculateStrength(pw = '') {
@@ -381,8 +389,7 @@ export default function DashboardPage() {
 
     try {
       setIsResettingVault(true);
-      const res = await fetch('/api/vault?action=reset', { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to reset vault');
+      resetVault(user.id);
 
       if (typeof window !== 'undefined' && user.id) {
         sessionStorage.removeItem('vaultsync_active_key_' + user.id);
@@ -476,20 +483,15 @@ export default function DashboardPage() {
     );
   };
 
-  // Fetch and Decrypt all records from /api/vault
+  // Load and Decrypt all records from client-side storage
   const loadVaultData = useCallback(async (key, authUserId) => {
     if (!authUserId) return false;
     setIsLoadingVault(true);
     try {
       let rawItems = [];
 
-      // 1. Fetch from backend API
-      const res = await fetch('/api/vault');
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || 'Unable to load the secure vault');
-      }
-      const data = await res.json();
+      // 1. Load from client-side localStorage (zero-knowledge: never touches server)
+      const data = getVaultData(authUserId);
       rawItems = data.items || [];
       if (data.source) setCloudSyncSource(data.source);
       if (data.verifier) setStoredVerifier(data.verifier);
@@ -628,19 +630,7 @@ export default function DashboardPage() {
       if (isSetupMode) {
         // First-Time Setup: create cryptographic canary verifier
         const canary = await encryptVaultSecret('VAULTSYNC_KEY_VERIFIED', derivedKey);
-        const saveRes = await fetch('/api/vault', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            is_verifier: true,
-            verifier: canary.ciphertext,
-            verifier_iv: canary.iv
-          })
-        });
-
-        if (!saveRes.ok) {
-          throw new Error('Failed to save master password verifier on server');
-        }
+        saveVerifier(user.id, canary.ciphertext, canary.iv);
 
         setStoredVerifier(canary.ciphertext);
         setStoredVerifierIv(canary.iv);
@@ -669,15 +659,7 @@ export default function DashboardPage() {
       if (!isSetupMode && (!storedVerifier || !storedVerifierIv)) {
         try {
           const canary = await encryptVaultSecret('VAULTSYNC_KEY_VERIFIED', derivedKey);
-          await fetch('/api/vault', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              is_verifier: true,
-              verifier: canary.ciphertext,
-              verifier_iv: canary.iv
-            })
-          });
+          saveVerifier(user.id, canary.ciphertext, canary.iv);
           setStoredVerifier(canary.ciphertext);
           setStoredVerifierIv(canary.iv);
         } catch (canErr) {
@@ -758,22 +740,12 @@ export default function DashboardPage() {
           }
         }
 
-        // 2. Fetch vault status from API safely with 401 retry
+        // 2. Load vault status from client-side storage (zero-knowledge: no server round-trip)
         let data = {};
         try {
-          const res = await fetch('/api/vault');
-          if (res.ok) {
-            data = await res.json();
-          } else if (res.status === 401) {
-            // Give Clerk session cookie a moment to settle on fresh sign-in and retry once
-            await new Promise((r) => setTimeout(r, 600));
-            const retryRes = await fetch('/api/vault');
-            if (retryRes.ok) {
-              data = await retryRes.json();
-            }
-          }
-        } catch (fetchErr) {
-          console.warn('Vault fetch notice:', fetchErr);
+          data = getVaultData(user.id);
+        } catch (loadErr) {
+          console.warn('Vault load notice:', loadErr);
         }
 
         if (isCancelled) return;
@@ -965,25 +937,19 @@ export default function DashboardPage() {
           history: Array.isArray(item.passwordHistory) ? item.passwordHistory : []
         };
         const encryptedNotes = await encryptVaultSecret(JSON.stringify(extra), cryptoKey);
-        const response = await fetch('/api/vault', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: item.id,
-            name: item.name,
-            username: item.username,
-            encrypted_password: ciphertext,
-            iv: iv,
-            auth_tag: newFav ? 'fav' : 'none',
-            category: item.category,
-            strength: item.strength,
-            notes_encrypted: encryptedNotes.ciphertext,
-            notes_iv: encryptedNotes.iv,
-            icon_type: domain,
-            url: domain
-          })
+        updateVaultItem(user.id, item.id, {
+          name: item.name,
+          username: item.username,
+          encrypted_password: ciphertext,
+          iv: iv,
+          auth_tag: newFav ? 'fav' : 'none',
+          category: item.category,
+          strength: item.strength,
+          notes_encrypted: encryptedNotes.ciphertext,
+          notes_iv: encryptedNotes.iv,
+          icon_type: domain,
+          url: domain
         });
-        if (!response.ok) throw new Error('Unable to save favorite status');
       }
       triggerToast(newFav ? `Starred ${item.name} as Favorite!` : `Removed ${item.name} from Favorites`);
     } catch (err) {
@@ -1050,31 +1016,21 @@ export default function DashboardPage() {
       const notesCiphertext = notesEnc.ciphertext;
       const notesIv = notesEnc.iv;
 
-      // Send encrypted payload to API
-      const res = await fetch('/api/vault', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: itemName,
-          username: plainUser,
-          encrypted_password: ciphertext,
-          iv: iv,
-          auth_tag: newItemIsFav ? 'fav' : null,
-          category: newItemCategory,
-          strength: strength,
-          notes_encrypted: notesCiphertext,
-          notes_iv: notesIv,
-          icon_type: domain,
-          url: domain
-        })
+      // Save encrypted payload to client-side storage (zero-knowledge: never leaves browser)
+      const inserted = addVaultItem(user.id, {
+        name: itemName,
+        username: plainUser,
+        encrypted_password: ciphertext,
+        iv: iv,
+        auth_tag: newItemIsFav ? 'fav' : null,
+        category: newItemCategory,
+        strength: strength,
+        notes_encrypted: notesCiphertext,
+        notes_iv: notesIv,
+        icon_type: domain,
+        url: domain
       });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to save item');
-      }
-
-      const inserted = data.item;
       const newItem = {
         id: inserted.id,
         name: itemName,
@@ -1165,29 +1121,19 @@ export default function DashboardPage() {
       const notesCiphertext = notesEnc.ciphertext;
       const notesIv = notesEnc.iv;
 
-      const res = await fetch('/api/vault', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: editingItemId,
-          name: itemName,
-          username: plainUser,
-          encrypted_password: ciphertext,
-          iv: iv,
-          auth_tag: editItemIsFav ? 'fav' : 'none',
-          category: editItemCategory,
-          strength: strength,
-          notes_encrypted: notesCiphertext,
-          notes_iv: notesIv,
-          icon_type: domain,
-          url: domain
-        })
+      updateVaultItem(user.id, editingItemId, {
+        name: itemName,
+        username: plainUser,
+        encrypted_password: ciphertext,
+        iv: iv,
+        auth_tag: editItemIsFav ? 'fav' : 'none',
+        category: editItemCategory,
+        strength: strength,
+        notes_encrypted: notesCiphertext,
+        notes_iv: notesIv,
+        icon_type: domain,
+        url: domain
       });
-
-      if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || 'Failed to update item');
-      }
 
       // Update state
       setVaultItems((prev) =>
@@ -1306,43 +1252,36 @@ export default function DashboardPage() {
         };
         const encNotes = await encryptVaultSecret(JSON.stringify(extra), cryptoKey);
 
-        const res = await fetch('/api/vault', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: raw.name,
-            username: raw.username,
-            encrypted_password: ciphertext,
-            iv: iv,
-            auth_tag: null,
-            category: raw.category || 'Logins',
-            strength: raw.strength || calculateStrength(raw.password),
-            notes_encrypted: encNotes.ciphertext,
-            notes_iv: encNotes.iv,
-            icon_type: domain,
-            url: domain
-          })
+        const savedItem = addVaultItem(user.id, {
+          name: raw.name,
+          username: raw.username,
+          encrypted_password: ciphertext,
+          iv: iv,
+          auth_tag: null,
+          category: raw.category || 'Logins',
+          strength: raw.strength || calculateStrength(raw.password),
+          notes_encrypted: encNotes.ciphertext,
+          notes_iv: encNotes.iv,
+          icon_type: domain,
+          url: domain
         });
 
-        if (res.ok) {
-          const data = await res.json();
-          newlyAdded.push({
-            id: data.item.id,
-            name: raw.name,
-            username: raw.username,
-            password: raw.password,
-            notes: raw.notes || '',
-            totpSecret: raw.totpSecret || '',
-            passwordHistory: [],
-            category: raw.category || 'Logins',
-            strength: raw.strength || calculateStrength(raw.password),
-            url: domain,
-            iconType: domain,
-            isFavorite: false,
-            createdAt: data.item.created_at || new Date().toISOString()
-          });
-          importedCount++;
-        }
+        newlyAdded.push({
+          id: savedItem.id,
+          name: raw.name,
+          username: raw.username,
+          password: raw.password,
+          notes: raw.notes || '',
+          totpSecret: raw.totpSecret || '',
+          passwordHistory: [],
+          category: raw.category || 'Logins',
+          strength: raw.strength || calculateStrength(raw.password),
+          url: domain,
+          iconType: domain,
+          isFavorite: false,
+          createdAt: savedItem.created_at || new Date().toISOString()
+        });
+        importedCount++;
       } catch (e) {
         console.warn('Failed to import item', raw.name, e);
       }
@@ -1383,26 +1322,19 @@ export default function DashboardPage() {
       };
       const encNotes = await encryptVaultSecret(JSON.stringify(extra), cryptoKey);
 
-      const res = await fetch('/api/vault', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: item.id,
-          name: item.name,
-          username: item.username,
-          encrypted_password: ciphertext,
-          iv: iv,
-          auth_tag: item.isFavorite ? 'fav' : 'none',
-          category: item.category,
-          strength: 'Strong',
-          notes_encrypted: encNotes.ciphertext,
-          notes_iv: encNotes.iv,
-          icon_type: domain,
-          url: domain
-        })
+      updateVaultItem(user.id, item.id, {
+        name: item.name,
+        username: item.username,
+        encrypted_password: ciphertext,
+        iv: iv,
+        auth_tag: item.isFavorite ? 'fav' : 'none',
+        category: item.category,
+        strength: 'Strong',
+        notes_encrypted: encNotes.ciphertext,
+        notes_iv: encNotes.iv,
+        icon_type: domain,
+        url: domain
       });
-
-      if (!res.ok) throw new Error('Failed to update password');
 
       setVaultItems((prev) =>
         prev.map((i) =>
@@ -1517,13 +1449,8 @@ export default function DashboardPage() {
     if (!confirm(`Are you sure you want to permanently delete "${item.name}" from your vault?`)) return;
 
     try {
-      const res = await fetch(`/api/vault?id=${item.id}`, { method: 'DELETE' });
-      if (!res.ok) {
-        throw new Error('Failed to delete item from cloud store');
-      }
-
+      deleteVaultItem(user.id, item.id);
       setVaultItems((prev) => prev.filter((i) => i.id !== item.id));
-
       triggerToast(`Deleted ${item.name} from vault.`);
     } catch (err) {
       console.error('Failed to delete item:', err);
@@ -1627,15 +1554,7 @@ export default function DashboardPage() {
 
       // 1. Establish new cryptographic canary verifier
       const canary = await encryptVaultSecret('VAULTSYNC_KEY_VERIFIED', newKey);
-      await fetch('/api/vault', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          is_verifier: true,
-          verifier: canary.ciphertext,
-          verifier_iv: canary.iv
-        })
-      });
+      saveVerifier(user.id, canary.ciphertext, canary.iv);
       setStoredVerifier(canary.ciphertext);
       setStoredVerifierIv(canary.iv);
 
@@ -1650,25 +1569,19 @@ export default function DashboardPage() {
         const encNotes = await encryptVaultSecret(JSON.stringify(extra), newKey);
         const domain = item.url || resolveCompanyDomain(item.name);
 
-        const response = await fetch('/api/vault', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: item.id,
-            name: item.name,
-            username: item.username,
-            encrypted_password: ciphertext,
-            iv: iv,
-            auth_tag: item.isFavorite ? 'fav' : 'none',
-            category: item.category,
-            strength: item.strength,
-            notes_encrypted: encNotes.ciphertext,
-            notes_iv: encNotes.iv,
-            icon_type: domain,
-            url: domain
-          })
+        updateVaultItem(user.id, item.id, {
+          name: item.name,
+          username: item.username,
+          encrypted_password: ciphertext,
+          iv: iv,
+          auth_tag: item.isFavorite ? 'fav' : 'none',
+          category: item.category,
+          strength: item.strength,
+          notes_encrypted: encNotes.ciphertext,
+          notes_iv: encNotes.iv,
+          icon_type: domain,
+          url: domain
         });
-        if (!response.ok) throw new Error('Could not re-encrypt every vault item. Keep this tab open and retry before locking the vault.');
       }
 
       // 3. Cache new session key in sessionStorage

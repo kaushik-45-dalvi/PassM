@@ -7,9 +7,10 @@ VaultSync operates on an **End-to-End Zero-Knowledge Trust Boundary**. The bound
 1. **Client Trust Zone (In-Browser Web Crypto Context)**:
    - Plaintext master passwords, decrypted credentials, raw TOTP secrets, and derived cryptographic keys exist **only** inside ephemeral browser memory (JavaScript heap & `SubtleCrypto` handles).
    - All cryptographic transformations (PBKDF2 key derivation, AES-GCM encryption/decryption, HMAC-SHA1 TOTP generation) take place inside this boundary via hardware-accelerated Web Crypto primitives.
-2. **Untrusted Storage & Network Zone (Edge, Server, Storage)**:
-   - Next.js server route handlers (`/api/vault`) and secure vault storage (`data/vaults/[userId].json`) store **only** encrypted ciphertext blobs, initialization vectors (IV), authenticated tags, and non-sensitive categorization metadata.
-   - Even a total storage leak or compromised server reveals zero plaintext credentials.
+2. **Untrusted Zone (Edge, Network, External)**:
+   - Next.js middleware and Clerk handle authentication only (identity verification).
+   - **No vault data is stored on, transmitted to, or processed by any server.** The VaultSync server has zero access to encrypted or plaintext credentials.
+   - All encrypted vault data resides exclusively in the browser's `localStorage`, keyed by Clerk userId.
 
 ```
 +---------------------------------------------------------------------------------------+
@@ -31,12 +32,14 @@ VaultSync operates on an **End-to-End Zero-Knowledge Trust Boundary**. The bound
 +--------|------------------------------------------------------------------------------+
          | HTTPS TLS 1.3
 +--------v------------------------------------------------------------------------------+
-|                         UNTRUSTED STORAGE ZONE (Server / Cloud)                       |
+|                         UNTRUSTED ZONE (Network / Edge)                              |
 |                                                                                       |
-|  Next.js API Handler: /api/vault (Clerk JWT Identity Validation)                      |
-|        |                                                                              |
-|        +---> Zero-Knowledge Vault Storage (`data/vaults/<sanitized_userId>.json`)     |
+|  Clerk Middleware: Identity verification only (JWT validation)                        |
+|  No vault data is sent to or stored on ANY server.                                   |
 +---------------------------------------------------------------------------------------+
+
+All encrypted vault data is stored in browser `localStorage`:  
+`localStorage['vaultsync_vault_<userId>']` → `{ verifier, verifier_iv, items: [...] }`
 ```
 
 ---
@@ -73,8 +76,8 @@ interface DecryptedVaultItem {
 }
 ```
 
-### 3.2. Encrypted Wire & Storage Schema
-The structure stored in secure zero-knowledge storage (`data/vaults/[userId].json`):
+### 3.2. Encrypted Storage Schema (Browser localStorage)
+The structure stored in `localStorage['vaultsync_vault_<userId>']`:
 
 ```json
 {
@@ -120,13 +123,13 @@ Stored once per user vault:
 4. Client creates Canary Verifier:
    - Encrypts `"vaultsync_valid_master_key"` with the derived key.
    - Generates `{ verifier: base64, verifier_iv: base64 }`.
-5. Client issues `POST /api/vault` with payload `{ action: 'set_verifier', verifier, verifier_iv }`.
-6. Server commits canary record to persistent storage.
+5. Client saves canary verifier directly to browser `localStorage`.
+6. No server round-trip is required — vault exists purely in the browser.
 
 ### Workflow 2: Vault Unlock & Zero-Knowledge Verification
 1. User enters Master Password.
 2. Client derives trial AES-GCM CryptoKey via `deriveMasterKey(...)`.
-3. Client fetches stored `{ verifier, verifier_iv }` from server.
+3. Client reads stored `{ verifier, verifier_iv }` from browser `localStorage`.
 4. Client calls `decryptVaultSecret(verifier, verifier_iv, trialKey)`:
    - **Case A (Correct Password)**: SubtleCrypto decodes `"vaultsync_valid_master_key"`.
      - Trial key is marked as verified Master Key.
@@ -142,8 +145,8 @@ Stored once per user vault:
 3. If TOTP secret is present, client packages it into the encrypted payload or encrypted notes block.
 4. Client encrypts plaintext password via `SubtleCrypto.encrypt({ name: 'AES-GCM', iv }, masterKey, encodedPassword)`.
 5. If notes exist, client generates independent 12-byte IV and encrypts notes.
-6. Client posts ciphertext and metadata to `/api/vault`.
-7. Server validates schema bounds and saves record without reading plaintexts.
+6. Client saves ciphertext record directly to browser `localStorage`.
+7. No server receives or processes any credential data.
 
 ### Workflow 4: Automatic Inactivity Lockout
 1. A global event listener tracks user interaction (`mousedown`, `keydown`, `touchstart`, `scroll`).
@@ -216,7 +219,8 @@ The logo fetcher only queries the public domain name (e.g. `github.com`). It **n
 
 | Threat Vector | Attack Scenario | VaultSync Countermeasure |
 |---|---|---|
-| **Database Compromise** | Attacker dumps entire database/files. | All secrets are AES-256-GCM ciphertexts. Without the user's master password, ciphertexts cannot be broken. |
+| **Server Compromise** | Attacker gains full server access. | Zero vault data exists on any server. All secrets remain in the user's browser `localStorage`. Server only runs Clerk authentication. |
+| **Database Compromise** | Attacker dumps database/files. | No database stores vault data. All secrets are AES-256-GCM ciphertexts in browser-local storage only. |
 | **Man-in-the-Middle (MITM)** | Network eavesdropper intercepts HTTP traffic. | End-to-End TLS 1.3 encryption in transit + payload is already encrypted on client before transmission. |
 | **Ciphertext Tampering** | Attacker alters encrypted bytes in storage. | AES-GCM 128-bit authentication tag validation fails on decryption, throwing an error and refusing corrupted data. |
 | **Master Password Brute Force** | Attacker tries dictionary attack on master key. | PBKDF2 with 100,000 SHA-256 iterations and per-user unique salt makes large-scale brute force computationally infeasible. |
