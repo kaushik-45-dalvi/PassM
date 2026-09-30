@@ -74,6 +74,11 @@ import {
   deleteVaultItem,
   resetVault
 } from '../../lib/storage/clientVaultStorage';
+import {
+  sanitizeSafeUrl,
+  sanitizeTextInput,
+  getLockoutDuration
+} from '../../lib/utils/security';
 
 // Entropy & Password Strength Calculator
 function calculateStrength(pw = '') {
@@ -691,19 +696,20 @@ export default function DashboardPage() {
     } catch (err) {
       const nextFailed = failedUnlockAttempts + 1;
       setFailedUnlockAttempts(nextFailed);
-      if (nextFailed >= 5) {
-        setLockoutTimer(30);
+      const lockoutDuration = getLockoutDuration(nextFailed);
+
+      if (lockoutDuration > 0) {
+        setLockoutTimer(lockoutDuration);
         const lockInt = setInterval(() => {
           setLockoutTimer((prev) => {
             if (prev <= 1) {
               clearInterval(lockInt);
-              setFailedUnlockAttempts(0);
               return 0;
             }
             return prev - 1;
           });
         }, 1000);
-        setUnlockError('Brute-force protection: 5 failed unlock attempts. Locked for 30 seconds.');
+        setUnlockError(`Brute-force protection: ${nextFailed} failed attempts. Vault locked for ${lockoutDuration} seconds.`);
       } else {
         setUnlockError(err.message || 'Failed to unlock vault');
       }
@@ -997,10 +1003,10 @@ export default function DashboardPage() {
 
     setIsSaving(true);
     try {
-      const plainPass = newItemPass.trim();
-      const plainUser = newItemUser.trim() || user.email;
-      const itemName = newItemName.trim();
-      const domain = newItemUrl.trim() || resolveCompanyDomain(itemName);
+      const plainPass = sanitizeTextInput(newItemPass.trim(), 500);
+      const plainUser = sanitizeTextInput(newItemUser.trim() || user.email, 300);
+      const itemName = sanitizeTextInput(newItemName.trim(), 200);
+      const domain = sanitizeTextInput(newItemUrl.trim(), 500) || resolveCompanyDomain(itemName);
       const strength = calculateStrength(plainPass);
 
       if (!cryptoKey) {
@@ -1011,8 +1017,8 @@ export default function DashboardPage() {
       const { ciphertext, iv } = await encryptVaultSecret(plainPass, cryptoKey);
       
       const extra = {
-        notes: newItemNotes.trim(),
-        totpSecret: newItemTotp.trim(),
+        notes: sanitizeTextInput(newItemNotes.trim(), 5000),
+        totpSecret: sanitizeTextInput(newItemTotp.trim(), 200),
         history: []
       };
       const notesEnc = await encryptVaultSecret(JSON.stringify(extra), cryptoKey);
@@ -1039,8 +1045,8 @@ export default function DashboardPage() {
         name: itemName,
         username: plainUser,
         password: plainPass,
-        notes: newItemNotes.trim(),
-        totpSecret: newItemTotp.trim(),
+        notes: extra.notes,
+        totpSecret: extra.totpSecret,
         passwordHistory: [],
         category: newItemCategory,
         strength: strength,
@@ -1087,10 +1093,10 @@ export default function DashboardPage() {
 
     setIsSaving(true);
     try {
-      const plainPass = editItemPass.trim();
-      const plainUser = editItemUser.trim() || user.email;
-      const itemName = editItemName.trim();
-      const domain = editItemUrl.trim() || resolveCompanyDomain(itemName);
+      const plainPass = sanitizeTextInput(editItemPass.trim(), 500);
+      const plainUser = sanitizeTextInput(editItemUser.trim() || user.email, 300);
+      const itemName = sanitizeTextInput(editItemName.trim(), 200);
+      const domain = sanitizeTextInput(editItemUrl.trim(), 500) || resolveCompanyDomain(itemName);
       const strength = calculateStrength(plainPass);
 
       if (!cryptoKey) {
@@ -2523,11 +2529,11 @@ export default function DashboardPage() {
                           <h4 className="vault-card-title" title={item.name}>
                             {item.name}
                           </h4>
-                          {item.url && (
+                          {sanitizeSafeUrl(item.url) && (
                             <a
-                              href={item.url.startsWith('http') ? item.url : `https://${item.url}`}
+                              href={sanitizeSafeUrl(item.url)}
                               target="_blank"
-                              rel="noreferrer"
+                              rel="noopener noreferrer"
                               className="vault-card-url-link"
                               title={`Open ${item.url}`}
                             >
@@ -2687,12 +2693,13 @@ export default function DashboardPage() {
                           <CompanyLogo name={item.name} url={item.url} size={24} />
                           <div>
                             <strong style={{ color: '#F8FAFC' }}>{item.name}</strong>
-                            {item.url && (
+                            {sanitizeSafeUrl(item.url) && (
                               <a
-                                href={item.url.startsWith('http') ? item.url : `https://${item.url}`}
+                                href={sanitizeSafeUrl(item.url)}
                                 target="_blank"
-                                rel="noreferrer"
+                                rel="noopener noreferrer"
                                 style={{ marginLeft: 6, color: '#64748B', display: 'inline-flex', verticalAlign: 'middle' }}
+                                title={`Open ${item.url}`}
                               >
                                 <ArrowUpRight size={13} />
                               </a>
