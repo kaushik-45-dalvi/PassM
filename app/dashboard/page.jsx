@@ -636,6 +636,7 @@ export default function DashboardPage() {
         setStoredVerifier(canary.ciphertext);
         setStoredVerifierIv(canary.iv);
         setHasExistingVault(true);
+        setIsSetupMode(false);
       } else {
         // Unlock Mode: verify canary if present
         if (storedVerifier && storedVerifierIv) {
@@ -763,13 +764,14 @@ export default function DashboardPage() {
           if (loaded) {
             setCryptoKey(activeKey);
             setIsVaultLocked(false);
+            setIsSetupMode(false);
             return;
           } else {
             sessionStorage.removeItem('vaultsync_active_key_' + user.id);
           }
         }
 
-        // Lock screen: choose appropriate setup vs unlock mode
+        // Lock screen: if vault exists, ALWAYS show unlock mode (never setup mode)
         setIsVaultLocked(true);
         setIsSetupMode(!hasVault);
       } catch (err) {
@@ -2797,53 +2799,14 @@ export default function DashboardPage() {
               <VaultSyncLogoIcon size={54} />
             </div>
 
-            {/* Mode Switcher Tabs */}
-            <div style={{ display: 'flex', gap: '6px', background: '#F1F5F9', padding: '4px', borderRadius: '30px', margin: '0 auto 16px', maxWidth: '280px' }}>
-              <button
-                type="button"
-                onClick={() => { setIsSetupMode(false); setUnlockError(''); }}
-                style={{
-                  flex: 1,
-                  padding: '6px 12px',
-                  borderRadius: '24px',
-                  border: 'none',
-                  fontSize: '0.78rem',
-                  fontWeight: '800',
-                  cursor: 'pointer',
-                  background: !isSetupMode ? '#000000' : 'transparent',
-                  color: !isSetupMode ? '#FFFFFF' : '#64748B',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                Unlock Vault
-              </button>
-              <button
-                type="button"
-                onClick={() => { setIsSetupMode(true); setUnlockError(''); }}
-                style={{
-                  flex: 1,
-                  padding: '6px 12px',
-                  borderRadius: '24px',
-                  border: 'none',
-                  fontSize: '0.78rem',
-                  fontWeight: '800',
-                  cursor: 'pointer',
-                  background: isSetupMode ? '#000000' : 'transparent',
-                  color: isSetupMode ? '#FFFFFF' : '#64748B',
-                  transition: 'all 0.15s ease'
-                }}
-              >
-                First-Time Setup
-              </button>
-            </div>
-
+            {/* If NO existing vault, show First-Time Setup title; if vault exists, show Unlock title */}
             <h2 className="vault-lock-title">
-              {isSetupMode ? 'Create Master Password' : 'Unlock Your Vault'}
+              {hasExistingVault ? 'Unlock Your Vault' : 'Create Master Password'}
             </h2>
             <p className="vault-lock-subtitle">
-              {isSetupMode
-                ? 'Choose a memorable, strong password. It derives your local AES-256-GCM encryption key.'
-                : 'Your passwords are end-to-end encrypted with client-side AES-256-GCM.'}
+              {hasExistingVault
+                ? 'Your passwords are end-to-end encrypted with client-side AES-256-GCM.'
+                : 'Choose a strong, memorable master password. It derives your local AES-256-GCM encryption key.'}
             </p>
 
             <div className="vault-lock-user-chip">
@@ -2887,10 +2850,11 @@ export default function DashboardPage() {
                 </div>
               )}
 
+              {/* Master Password input */}
               <div className="vault-lock-input-wrap">
                 <input
                   type={showUnlockPass ? 'text' : 'password'}
-                  placeholder={isSetupMode ? 'Create Master Password (min 8 chars)' : 'Enter Master Password'}
+                  placeholder={!hasExistingVault ? 'Create Master Password (min 8 chars)' : 'Enter Master Password'}
                   value={unlockPassword}
                   onChange={(e) => setUnlockPassword(e.target.value)}
                   className="vault-lock-input"
@@ -2909,7 +2873,7 @@ export default function DashboardPage() {
                 </button>
               </div>
 
-              {isSetupMode && unlockPassword && (
+              {!hasExistingVault && unlockPassword && (
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '-6px 4px 10px', fontSize: '0.75rem' }}>
                   <span style={{ color: '#64748B' }}>Password Strength:</span>
                   <span style={{
@@ -2921,7 +2885,7 @@ export default function DashboardPage() {
                 </div>
               )}
 
-              {isSetupMode && (
+              {!hasExistingVault && (
                 <div className="vault-lock-input-wrap" style={{ marginTop: '10px' }}>
                   <input
                     type={showUnlockPass ? 'text' : 'password'}
@@ -2944,14 +2908,14 @@ export default function DashboardPage() {
                 ) : (
                   <>
                     <Unlock size={18} />
-                    <span>{isSetupMode ? 'Initialize Secure Vault' : 'Unlock Encrypted Vault'}</span>
+                    <span>{!hasExistingVault ? 'Initialize Secure Vault' : 'Unlock Encrypted Vault'}</span>
                   </>
                 )}
               </button>
             </form>
 
             {/* Reset Vault Option */}
-            {!isSetupMode && (
+            {hasExistingVault && (
               <div style={{ marginTop: 14, textAlign: 'center' }}>
                 <button
                   type="button"
@@ -2976,9 +2940,9 @@ export default function DashboardPage() {
             <p className="vault-lock-footnote" style={{ display: 'flex', alignItems: 'flex-start', gap: 6, justifyContent: 'center' }}>
               <Info size={15} style={{ flexShrink: 0, marginTop: 2, color: '#64748B' }} />
               <span>
-                {isSetupMode
-                  ? 'Your master password is never sent to our servers. Keep it safe—zero knowledge means only you can unlock your vault.'
-                  : 'First time here? Switch to "First-Time Setup" above to create and confirm your master key.'}
+                {!hasExistingVault
+                  ? 'Your master password never leaves your browser. Keep it safe—Zero-Knowledge means only you can decrypt your vault.'
+                  : 'Protected with local AES-256-GCM encryption. Your master password is never stored or transmitted to any server.'}
               </span>
             </p>
           </div>
