@@ -2303,7 +2303,7 @@ export default function DashboardPage() {
                     {auditMetrics.weakItems.map((item) => (
                       <div key={item.id} className="vault-audit-item-row">
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                          <CompanyLogo name={item.name} size={28} />
+                          <CompanyLogo name={item.name} url={item.url} size={28} />
                           <div style={{ minWidth: 0 }}>
                             <strong style={{ display: 'block', fontSize: '0.88rem', color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {item.name}
@@ -2438,7 +2438,7 @@ export default function DashboardPage() {
                     {auditMetrics.missing2fa.slice(0, 6).map((item) => (
                       <div key={item.id} className="vault-audit-item-row">
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}>
-                          <CompanyLogo name={item.name} size={28} />
+                          <CompanyLogo name={item.name} url={item.url} size={28} />
                           <div style={{ minWidth: 0 }}>
                             <strong style={{ display: 'block', fontSize: '0.88rem', color: '#000000', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                               {item.name}
@@ -2514,7 +2514,7 @@ export default function DashboardPage() {
                   <div className="vault-card-header">
                     <div className="vault-card-brand">
                       <div className="vault-card-logo-wrap">
-                        <CompanyLogo name={item.name} size={32} />
+                        <CompanyLogo name={item.name} url={item.url} size={32} />
                       </div>
                       <div className="vault-card-meta">
                         <div className="vault-card-title-row">
@@ -2682,7 +2682,7 @@ export default function DashboardPage() {
                       </td>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                          <CompanyLogo name={item.name} size={24} />
+                          <CompanyLogo name={item.name} url={item.url} size={24} />
                           <div>
                             <strong style={{ color: '#F8FAFC' }}>{item.name}</strong>
                             {item.url && (
@@ -3007,7 +3007,7 @@ export default function DashboardPage() {
                 <label className="vault-form-label">Service or Website Name</label>
                 <div className="vault-form-input-with-logo">
                   <div className="vault-form-logo-box">
-                    <CompanyLogo name={newItemName.trim() || 'Vault'} size={26} />
+                    <CompanyLogo name={newItemName.trim() || 'Vault'} url={newItemUrl} size={26} />
                   </div>
                   <input
                     type="text"
@@ -3425,7 +3425,7 @@ export default function DashboardPage() {
                 <label className="vault-form-label">Service or Website Name</label>
                 <div className="vault-form-input-with-logo">
                   <div className="vault-form-logo-box">
-                    <CompanyLogo name={editItemName.trim() || 'Vault'} size={26} />
+                    <CompanyLogo name={editItemName.trim() || 'Vault'} url={editItemUrl} size={26} />
                   </div>
                   <input
                     type="text"
@@ -3814,8 +3814,13 @@ export default function DashboardPage() {
                             />
                           </td>
                           <td>
-                            <strong style={{ color: '#000000' }}>{item.name}</strong>
-                            {item.url && <div style={{ fontSize: '0.74rem', color: '#64748B' }}>{item.url}</div>}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                              <CompanyLogo name={item.name} url={item.url} size={22} />
+                              <div>
+                                <strong style={{ color: '#000000', display: 'block' }}>{item.name}</strong>
+                                {item.url && <div style={{ fontSize: '0.74rem', color: '#64748B' }}>{item.url}</div>}
+                              </div>
+                            </div>
                           </td>
                           <td style={{ color: '#475569' }}>{item.username || '—'}</td>
                           <td>
