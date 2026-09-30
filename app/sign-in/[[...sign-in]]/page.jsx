@@ -29,11 +29,10 @@ export default function SignInPage() {
             style={{
               width: "100%",
               maxWidth: "400px",
-              padding: "36px 24px",
+              padding: "48px 24px",
               background: "#FFFFFF",
-              border: "3px solid #000000",
-              borderRadius: "24px",
-              boxShadow: "6px 6px 0 #000000",
+              borderRadius: "16px",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
               textAlign: "center",
               display: "flex",
               flexDirection: "column",
@@ -43,16 +42,16 @@ export default function SignInPage() {
           >
             <div
               style={{
-                width: "36px",
-                height: "36px",
+                width: "32px",
+                height: "32px",
                 borderRadius: "50%",
                 border: "3px solid #E2E8F0",
                 borderTopColor: "#16A34A",
                 animation: "spin 0.7s linear infinite"
               }}
             />
-            <p style={{ fontWeight: 800, color: "#000000", fontSize: "0.95rem" }}>
-              Loading Secure Sign-In...
+            <p style={{ fontWeight: 600, color: "#64748B", fontSize: "0.90rem" }}>
+              Loading authentication...
             </p>
             <style>{`
               @keyframes spin {
