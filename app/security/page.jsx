@@ -251,7 +251,7 @@ export default function SecurityPage() {
               <strong>Payload Encryption:</strong> Plaintext passwords, 2FA secret keys, and encrypted history items are packaged into a JSON payload and encrypted with AES-256-GCM.
             </li>
             <li>
-              <strong>Encrypted Sync:</strong> Only the random IV and ciphertext are sent over HTTPS to our Supabase database. Server logs and database administrators cannot read your credentials.
+              <strong>Encrypted Sync:</strong> Only the random IV and ciphertext are sent over HTTPS to our encrypted vault storage. Server logs and infrastructure administrators cannot read your credentials.
             </li>
           </ol>
         </div>

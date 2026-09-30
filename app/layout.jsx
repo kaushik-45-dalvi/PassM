@@ -62,6 +62,42 @@ export default function RootLayout({ children }) {
       signUpUrl="/sign-up"
       signInFallbackRedirectUrl="/dashboard"
       signUpFallbackRedirectUrl="/dashboard"
+      appearance={{
+        variables: {
+          colorPrimary: '#16A34A',
+          colorText: '#000000',
+          colorTextSecondary: '#475569',
+          colorBackground: '#FFFFFF',
+          colorInputBackground: '#FFFFFF',
+          colorInputText: '#000000',
+          borderRadius: '14px',
+          fontFamily: 'var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif',
+        },
+        elements: {
+          card: {
+            boxShadow: '6px 6px 0px #000000',
+            border: '2.5px solid #000000',
+            borderRadius: '20px',
+          },
+          formButtonPrimary: {
+            backgroundColor: '#000000',
+            color: '#FFFFFF',
+            border: '2px solid #000000',
+            boxShadow: '2px 2px 0px #000000',
+            fontWeight: '800',
+          },
+          socialButtonsBlockButton: {
+            border: '2px solid #000000',
+            boxShadow: '2px 2px 0px #000000',
+            borderRadius: '12px',
+            fontWeight: '700',
+          },
+          footerActionLink: {
+            color: '#16A34A',
+            fontWeight: '700',
+          },
+        },
+      }}
     >
       <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${caveat.variable} ${plusJakartaSans.className}`}>
         <body suppressHydrationWarning>

@@ -7,9 +7,9 @@ VaultSync operates on an **End-to-End Zero-Knowledge Trust Boundary**. The bound
 1. **Client Trust Zone (In-Browser Web Crypto Context)**:
    - Plaintext master passwords, decrypted credentials, raw TOTP secrets, and derived cryptographic keys exist **only** inside ephemeral browser memory (JavaScript heap & `SubtleCrypto` handles).
    - All cryptographic transformations (PBKDF2 key derivation, AES-GCM encryption/decryption, HMAC-SHA1 TOTP generation) take place inside this boundary via hardware-accelerated Web Crypto primitives.
-2. **Untrusted Storage & Network Zone (Edge, Server, Database)**:
-   - Next.js server route handlers (`/api/vault`), local filesystem vaults (`data/vaults/[userId].json`), and Supabase Postgres tables store **only** encrypted ciphertext blobs, initialization vectors (IV), authenticated tags, and non-sensitive categorization metadata.
-   - Even a total database leak or compromised server reveals zero plaintext credentials.
+2. **Untrusted Storage & Network Zone (Edge, Server, Storage)**:
+   - Next.js server route handlers (`/api/vault`) and secure vault storage (`data/vaults/[userId].json`) store **only** encrypted ciphertext blobs, initialization vectors (IV), authenticated tags, and non-sensitive categorization metadata.
+   - Even a total storage leak or compromised server reveals zero plaintext credentials.
 
 ```
 +---------------------------------------------------------------------------------------+
@@ -35,8 +35,7 @@ VaultSync operates on an **End-to-End Zero-Knowledge Trust Boundary**. The bound
 |                                                                                       |
 |  Next.js API Handler: /api/vault (Clerk JWT Identity Validation)                      |
 |        |                                                                              |
-|        +---> Primary: Local Filesystem Vault (`data/vaults/<sanitized_userId>.json`)   |
-|        +---> Fallback / Cloud Sync: Supabase Cloud Database (`vault_items` table)      |
+|        +---> Zero-Knowledge Vault Storage (`data/vaults/<sanitized_userId>.json`)     |
 +---------------------------------------------------------------------------------------+
 ```
 
@@ -75,7 +74,7 @@ interface DecryptedVaultItem {
 ```
 
 ### 3.2. Encrypted Wire & Storage Schema
-The structure stored in `data/vaults/[userId].json` and PostgreSQL `vault_items`:
+The structure stored in secure zero-knowledge storage (`data/vaults/[userId].json`):
 
 ```json
 {

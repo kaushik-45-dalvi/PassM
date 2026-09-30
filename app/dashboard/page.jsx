@@ -268,7 +268,7 @@ export default function DashboardPage() {
   const [lockoutTimer, setLockoutTimer] = useState(0);
   const [isLoadingVault, setIsLoadingVault] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [cloudSyncSource, setCloudSyncSource] = useState('supabase');
+  const [cloudSyncSource, setCloudSyncSource] = useState('vault_storage');
 
   // UI Action states
   const [revealedIds, setRevealedIds] = useState({});
@@ -2035,7 +2035,7 @@ export default function DashboardPage() {
             </h1>
             <p className="vault-hero-subtext">
               Welcome back, <strong>{user.name}</strong>. Your digital life is protected with client-side
-              AES-256-GCM encryption and synced in real-time with Supabase.
+              AES-256-GCM encryption and zero-knowledge architecture.
             </p>
             <div className="vault-hero-cta-group">
               <button className="btn-pill-black" onClick={handleOpenAddModal}>
@@ -4410,7 +4410,7 @@ export default function DashboardPage() {
                   </div>
                   <div style={{ fontSize: '0.76rem', color: '#64748B', display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <span>Account ID: {user.id || 'Active Session'}</span>
-                    <span>Database: Supabase PostgreSQL (Encrypted)</span>
+                    <span>Storage: Zero-Knowledge Encrypted Vault</span>
                   </div>
                 </div>
 

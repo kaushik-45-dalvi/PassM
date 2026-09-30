@@ -92,6 +92,8 @@ export default function SignInPage() {
 
         <ClerkLoaded>
           <SignIn
+            path="/sign-in"
+            routing="path"
             forceRedirectUrl="/dashboard"
             fallbackRedirectUrl="/dashboard"
             signUpUrl="/sign-up"

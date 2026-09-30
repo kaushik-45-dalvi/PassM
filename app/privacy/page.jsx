@@ -206,7 +206,7 @@ export default function PrivacyPage() {
               1. Mathematical Zero-Knowledge Architecture
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              VaultSync uses client-side encryption powered by the standardized Web Cryptography API. When you create or update a password, your device encrypts the payload using an AES-256-GCM key derived from your master password with PBKDF2 (100,000 iterations). Only the resulting ciphertext and a unique initialization vector are transmitted to Supabase. VaultSync administrators, developers, and infrastructure partners cannot view or decrypt your records.
+              VaultSync uses client-side encryption powered by the standardized Web Cryptography API. When you create or update a password, your device encrypts the payload using an AES-256-GCM key derived from your master password with PBKDF2 (100,000 iterations). Only the resulting ciphertext and a unique initialization vector are transmitted to the vault API. VaultSync administrators, developers, and infrastructure partners cannot view or decrypt your records.
             </p>
           </section>
 
@@ -228,7 +228,7 @@ export default function PrivacyPage() {
               3. Data Sharing & Third Parties
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              We do not sell, rent, monetize, or trade your personal data. We do not integrate advertising SDKs, tracking pixels, or third-party behavioral analytics. Database hosting is provided by Supabase over encrypted TLS 1.3 connections, protected by row-level security (RLS) policies ensuring users can only read their own records.
+              We do not sell, rent, monetize, or trade your personal data. We do not integrate advertising SDKs, tracking pixels, or third-party behavioral analytics. Encrypted vault payloads are transmitted exclusively over secure TLS 1.3 connections, verified with Clerk session tokens, and protected against unauthorized access.
             </p>
           </section>
 
