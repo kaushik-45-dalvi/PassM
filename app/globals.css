@@ -6479,3 +6479,103 @@ button {
     line-height: 1;
 }
 
+/* ---------- CLERK AUTHENTICATION COMPONENT OVERLAP FIXES ---------- */
+.cl-modalBackdrop {
+    backdrop-filter: blur(6px) !important;
+    background-color: rgba(0, 0, 0, 0.65) !important;
+    z-index: 99999 !important;
+}
+
+.cl-modalContent {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: auto !important;
+    max-width: 440px !important;
+    width: 100% !important;
+}
+
+.cl-cardBox {
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+}
+
+.cl-card {
+    background: #FFFFFF !important;
+    border: 2.5px solid #000000 !important;
+    border-radius: 24px !important;
+    box-shadow: 6px 6px 0px #000000 !important;
+    box-sizing: border-box !important;
+}
+
+.cl-headerTitle {
+    font-weight: 900 !important;
+    font-size: 1.35rem !important;
+    color: #000000 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.cl-headerSubtitle {
+    color: #64748B !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+}
+
+.cl-socialButtonsBlockButton {
+    border: 2px solid #000000 !important;
+    box-shadow: 2px 2px 0px #000000 !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    background: #FFFFFF !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.cl-socialButtonsBlockButton:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 3px 3px 0px #000000 !important;
+}
+
+.cl-formFieldInput {
+    border: 2px solid #000000 !important;
+    box-shadow: 2px 2px 0px #000000 !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    background: #FFFFFF !important;
+}
+
+.cl-formFieldInput:focus {
+    border-color: #16A34A !important;
+    box-shadow: 2.5px 2.5px 0px #000000 !important;
+}
+
+.cl-formButtonPrimary {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #000000 !important;
+    box-shadow: 3px 3px 0px #000000 !important;
+    border-radius: 50px !important;
+    font-weight: 800 !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.cl-formButtonPrimary:hover {
+    background-color: #16A34A !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 4px 4px 0px #000000 !important;
+}
+
+.cl-footer {
+    background: transparent !important;
+    border-top: none !important;
+}
+
+.cl-footerActionLink {
+    color: #16A34A !important;
+    font-weight: 800 !important;
+}
+

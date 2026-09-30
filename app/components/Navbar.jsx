@@ -44,11 +44,9 @@ export default function Navbar({ onOpenVault, onOpenDemo }) {
         {/* Desktop Nav Actions */}
         <div className="nav-right" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <Show when="signed-out">
-            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-              <button suppressHydrationWarning className="btn-signin" style={{ cursor: 'pointer' }}>
-                Sign In
-              </button>
-            </SignInButton>
+            <Link href="/sign-in" prefetch={true} className="btn-signin">
+              Sign In
+            </Link>
           </Show>
           <Show when="signed-in">
             <Link href="/dashboard" prefetch={true} className="btn-signin">
@@ -80,15 +78,14 @@ export default function Navbar({ onOpenVault, onOpenDemo }) {
         </ul>
         <div className="nav-mobile-actions">
           <Show when="signed-out">
-            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-              <button
-                suppressHydrationWarning
-                className="btn-signin-mobile"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Sign In
-              </button>
-            </SignInButton>
+            <Link
+              href="/sign-in"
+              prefetch={true}
+              className="btn-signin-mobile"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Sign In
+            </Link>
           </Show>
           <Show when="signed-in">
             <Link
