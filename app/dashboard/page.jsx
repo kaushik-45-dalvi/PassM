@@ -64,6 +64,7 @@ import {
   extractTOTPSecret
 } from '../../lib/crypto/vaultCrypto';
 import CompanyLogo from '../components/CompanyLogo';
+import VaultSyncLogo, { VaultSyncLogoIcon } from '../components/VaultSyncLogo';
 import { resolveCompanyDomain } from '../../lib/utils/logoFetcher';
 import {
   getVaultData,
@@ -1794,8 +1795,8 @@ export default function DashboardPage() {
     return (
       <div className="vault-dashboard-wrapper" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#F8F6F0' }}>
         <div style={{ textAlign: 'center', maxWidth: 420, padding: 36, background: '#FFFFFF', border: '2.5px solid #000000', borderRadius: 24, boxShadow: '4px 4px 0 #000000' }}>
-          <div style={{ width: 56, height: 56, borderRadius: '50%', background: '#B5F2B7', border: '2px solid #000', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-            <Shield size={28} color="#000000" />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+            <VaultSyncLogoIcon size={56} />
           </div>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 900, marginBottom: 8, color: '#000' }}>Authentication Required</h2>
           <p style={{ color: '#475569', fontSize: '0.90rem', marginBottom: 24, lineHeight: 1.5 }}>
@@ -1822,12 +1823,7 @@ export default function DashboardPage() {
       {/* TOP NAVIGATION BAR */}
       <header className="vault-navbar">
         <div className="vault-nav-brand-group">
-          <Link href="/" className="vault-brand-link">
-            <div className="vault-brand-icon-box">
-              <Shield size={20} />
-            </div>
-            <span className="vault-brand-gradient">VaultSync</span>
-          </Link>
+          <VaultSyncLogo size={32} fontSize="1.25rem" href="/" />
         </div>
 
         {/* Global Instant Search */}
@@ -2797,8 +2793,8 @@ export default function DashboardPage() {
       {isVaultLocked && (
         <div className="vault-lock-overlay">
           <div className="vault-lock-card">
-            <div className="vault-lock-shield-badge">
-              <Shield size={36} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+              <VaultSyncLogoIcon size={54} />
             </div>
 
             {/* Mode Switcher Tabs */}

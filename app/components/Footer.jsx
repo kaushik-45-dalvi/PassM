@@ -1,12 +1,13 @@
 import Link from 'next/link';
+import VaultSyncLogo from './VaultSyncLogo';
 
 export default function Footer() {
   return (
     <footer className="footer-sec">
       <div className="footer-top-row">
         <div className="footer-col-brand">
-          <div className="footer-brand-title">VaultSync</div>
-          <p className="footer-brand-sub">A calmer, safer way to manage your digital life.</p>
+          <VaultSyncLogo size={28} fontSize="1.2rem" href="/" />
+          <p className="footer-brand-sub" style={{ marginTop: 10 }}>A calmer, safer way to manage your digital life.</p>
         </div>
         <div className="footer-links-col">
           <h4>Product</h4>

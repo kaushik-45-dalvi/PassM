@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SignInButton, Show, UserButton } from '@clerk/nextjs';
+import VaultSyncLogo from './VaultSyncLogo';
 
 export default function Navbar({ onOpenVault, onOpenDemo }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,25 +32,7 @@ export default function Navbar({ onOpenVault, onOpenDemo }) {
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
       <div className="nav-inner">
-        <Link href="/" prefetch={true} className="brand-logo" aria-label="VaultSync home" style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
-          <div
-            style={{
-              width: 32,
-              height: 32,
-              background: '#B5F2B7',
-              border: '2px solid #000000',
-              borderRadius: '9px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '2px 2px 0 #000000',
-              flexShrink: 0
-            }}
-          >
-            <img src="/favicon.svg" alt="VaultSync" style={{ width: 20, height: 20, display: 'block' }} />
-          </div>
-          <span>VaultSync</span>
-        </Link>
+        <VaultSyncLogo size={32} fontSize="1.3rem" href="/" />
         
         {/* Desktop Nav Links */}
         <ul className="nav-menu" id="nav-menu">

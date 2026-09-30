@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { SignUp, ClerkLoaded, ClerkLoading } from "@clerk/nextjs";
-import { Shield } from "lucide-react";
+import VaultSyncLogo from "@/app/components/VaultSyncLogo";
 
 export default function SignUpPage() {
   return (
@@ -19,36 +19,9 @@ export default function SignUpPage() {
       }}
     >
       {/* Top Brand Link */}
-      <Link
-        href="/"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "10px",
-          textDecoration: "none",
-          color: "#000000",
-          fontWeight: 900,
-          fontSize: "1.35rem",
-          marginBottom: "24px"
-        }}
-      >
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            background: "#B5F2B7",
-            border: "2.5px solid #000000",
-            borderRadius: "11px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            boxShadow: "2.5px 2.5px 0 #000000"
-          }}
-        >
-          <Shield size={20} strokeWidth={2.6} color="#000000" />
-        </div>
-        <span>VaultSync</span>
-      </Link>
+      <div style={{ marginBottom: "24px" }}>
+        <VaultSyncLogo size={38} fontSize="1.45rem" href="/" />
+      </div>
 
       <div style={{ width: "100%", maxWidth: "440px", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <ClerkLoading>

@@ -16,6 +16,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import Footer from '../components/Footer';
+import VaultSyncLogo from '../components/VaultSyncLogo';
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(0);
@@ -73,36 +74,7 @@ export default function FAQPage() {
         }}
       >
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link
-            href="/"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              textDecoration: 'none',
-              color: '#000000',
-              fontWeight: 900,
-              fontSize: '1.25rem'
-            }}
-          >
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                background: '#B5F2B7',
-                border: '2px solid #000000',
-                borderRadius: '9px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                boxShadow: '2px 2px 0 #000000',
-                flexShrink: 0
-              }}
-            >
-              <img src="/favicon.svg" alt="VaultSync" style={{ width: 20, height: 20, display: 'block' }} />
-            </div>
-            <span>VaultSync</span>
-          </Link>
+          <VaultSyncLogo size={32} fontSize="1.25rem" href="/" />
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <Link
