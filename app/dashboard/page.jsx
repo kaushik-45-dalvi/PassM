@@ -306,6 +306,7 @@ export default function DashboardPage() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [newItemName, setNewItemName] = useState('');
   const [newItemUrl, setNewItemUrl] = useState('');
+  const [isAddUrlCustomized, setIsAddUrlCustomized] = useState(false);
   const [newItemUser, setNewItemUser] = useState('');
   const [newItemPass, setNewItemPass] = useState('');
   const [newItemTotp, setNewItemTotp] = useState('');
@@ -974,6 +975,7 @@ export default function DashboardPage() {
     }
     setNewItemName('');
     setNewItemUrl('');
+    setIsAddUrlCustomized(false);
     setNewItemUser(user.email || '');
     setNewItemPass(generateSecurePassword(16, true, true, true, true));
     setNewItemTotp('');
@@ -988,10 +990,12 @@ export default function DashboardPage() {
   // Name input change with auto-domain suggestion
   const handleNewNameChange = (val) => {
     setNewItemName(val);
-    if (!newItemUrl || newItemUrl.trim() === '') {
+    if (!isAddUrlCustomized) {
       const detected = resolveCompanyDomain(val);
-      if (detected && !detected.includes('generic.com')) {
-        setNewItemUrl(detected);
+      if (detected && detected !== 'generic.com') {
+        setNewItemUrl(`https://${detected}`);
+      } else {
+        setNewItemUrl('');
       }
     }
   };
@@ -2999,7 +3003,10 @@ export default function DashboardPage() {
                   type="text"
                   placeholder="https://example.com/login"
                   value={newItemUrl}
-                  onChange={(e) => setNewItemUrl(e.target.value)}
+                  onChange={(e) => {
+                    setIsAddUrlCustomized(true);
+                    setNewItemUrl(e.target.value);
+                  }}
                   className="vault-form-input-standard"
                 />
               </div>
