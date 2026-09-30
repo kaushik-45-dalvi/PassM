@@ -8,36 +8,59 @@ export function VaultSyncLogoIcon({ size = 32, className = '', style = {} }) {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 100 100"
+      viewBox="0 0 512 512"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{ display: 'inline-block', flexShrink: 0, verticalAlign: 'middle', ...style }}
-      aria-label="VaultSync Symbol"
+      aria-label="VaultSync Shield Padlock Symbol"
     >
-      {/* Neo-brutalist offset hard black shadow */}
-      <rect x="14" y="14" width="76" height="76" rx="22" fill="#000000" />
-      {/* Mint green rounded squircle body with bold black border */}
-      <rect
-        x="8"
-        y="8"
-        width="76"
-        height="76"
-        rx="22"
-        fill="#A7F3D0"
+      {/* Outer Mint Shield / Badge Body with Bold Black Border */}
+      <path
+        d="M 256,36 C 375,36 445,82 445,190 C 445,325 325,420 256,478 C 187,420 67,325 67,190 C 67,82 137,36 256,36 Z"
+        fill="#B5F2B7"
         stroke="#000000"
-        strokeWidth="7"
+        strokeWidth="26"
         strokeLinejoin="round"
       />
-      {/* Precision shield outline */}
+
+      {/* Inner Vault Padlock Shackle Loop */}
       <path
-        d="M 46 29 C 39 32 31 34 31 38 C 31 53 38 64 46 70 C 54 64 61 53 61 38 C 61 34 53 32 46 29 Z"
+        d="M 184,242 L 184,180 C 184,140 216,108 256,108 C 296,108 328,140 328,180 L 328,242"
+        fill="none"
         stroke="#000000"
-        strokeWidth="6"
+        strokeWidth="32"
         strokeLinecap="round"
         strokeLinejoin="round"
-        fill="none"
       />
+
+      {/* Padlock Base Body in Crisp White with Black Border */}
+      <rect
+        x="148"
+        y="236"
+        width="216"
+        height="160"
+        rx="28"
+        fill="#FFFFFF"
+        stroke="#000000"
+        strokeWidth="26"
+        strokeLinejoin="round"
+      />
+
+      {/* Padlock Top Rim Accent Line */}
+      <line
+        x1="162"
+        y1="258"
+        x2="350"
+        y2="258"
+        stroke="#000000"
+        strokeWidth="12"
+        strokeLinecap="round"
+      />
+
+      {/* Center Keyhole */}
+      <circle cx="256" cy="310" r="20" fill="#000000" />
+      <polygon points="245,316 267,316 272,356 240,356" fill="#000000" />
     </svg>
   );
 }
@@ -57,7 +80,7 @@ export default function VaultSyncLogo({
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: size > 32 ? '12px' : '9px',
+        gap: size > 32 ? '11px' : '9px',
         textDecoration: 'none',
         userSelect: 'none',
         ...style

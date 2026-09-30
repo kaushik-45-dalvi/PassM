@@ -1,46 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <!-- Hard Offset Drop Shadow for Shield -->
+  <!-- Outer Mint Shield / Pin Body with Bold Black Border -->
   <path
-    d="M 256,40 C 370,40 435,78 435,185 C 435,320 320,410 256,472 C 192,410 77,320 77,185 C 77,78 142,40 256,40 Z"
-    fill="#000000"
-    transform="translate(14, 14)"
-  />
-
-  <!-- Main Mint Shield Body with Crisp Black Border -->
-  <path
-    d="M 256,40 C 370,40 435,78 435,185 C 435,320 320,410 256,472 C 192,410 77,320 77,185 C 77,78 142,40 256,40 Z"
+    d="M 256,36 C 375,36 445,82 445,190 C 445,325 325,420 256,478 C 187,420 67,325 67,190 C 67,82 137,36 256,36 Z"
     fill="#B5F2B7"
     stroke="#000000"
     stroke-width="26"
     stroke-linejoin="round"
   />
 
-  <!-- Inner Vault Padlock Shackle -->
+  <!-- Inner Vault Padlock Shackle Loop -->
   <path
-    d="M 188,240 L 188,185 C 188,145 218,115 256,115 C 294,115 324,145 324,185 L 324,240"
+    d="M 184,242 L 184,180 C 184,140 216,108 256,108 C 296,108 328,140 328,180 L 328,242"
     fill="none"
     stroke="#000000"
     stroke-width="32"
     stroke-linecap="round"
+    stroke-linejoin="round"
   />
 
-  <!-- Padlock Base Body with Shadow -->
+  <!-- Padlock Base Body in Crisp White with Black Border -->
   <rect
-    x="152"
-    y="235"
-    width="208"
-    height="155"
-    rx="32"
+    x="148"
+    y="236"
+    width="216"
+    height="160"
+    rx="28"
     fill="#FFFFFF"
     stroke="#000000"
     stroke-width="26"
     stroke-linejoin="round"
   />
 
-  <!-- Keyhole in Center -->
-  <circle cx="256" cy="295" r="22" fill="#000000" />
-  <polygon points="244,302 268,302 274,345 238,345" fill="#000000" />
+  <!-- Padlock Top Rim Accent Line -->
+  <line
+    x1="162"
+    y1="258"
+    x2="350"
+    y2="258"
+    stroke="#000000"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
 
-  <!-- Subtle Accent Sparkle / Lock Bolt in Mint -->
-  <circle cx="256" cy="295" r="7" fill="#B5F2B7" />
+  <!-- Center Keyhole -->
+  <circle cx="256" cy="310" r="20" fill="#000000" />
+  <polygon points="245,316 267,316 272,356 240,356" fill="#000000" />
 </svg>
