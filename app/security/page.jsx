@@ -6,6 +6,7 @@ import VaultSyncLogo from '../components/VaultSyncLogo';
 export const metadata = {
   title: 'Security Architecture | VaultSync Zero-Knowledge',
   description: 'Technical security specifications: PBKDF2 100,000 rounds, AES-256-GCM encryption, RFC 6238 TOTP authenticator, and active OS clipboard protection.',
+  alternates: { canonical: '/security' },
 };
 
 export default function SecurityPage() {

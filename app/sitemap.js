@@ -1,27 +1,41 @@
 export default function sitemap() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsync.vercel.app';
+  const lastModified = new Date();
+
   return [
     {
-      url: siteUrl,
-      lastModified: new Date(),
+      url: `${siteUrl}`,
+      lastModified,
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+    {
+      url: `${siteUrl}/features`,
+      lastModified,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 0.9,
     },
     {
       url: `${siteUrl}/security`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/faq`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${siteUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${siteUrl}/terms`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.5,
     },

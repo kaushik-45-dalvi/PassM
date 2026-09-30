@@ -7,6 +7,7 @@ import VaultSyncLogo from '../components/VaultSyncLogo';
 export const metadata = {
   title: 'Terms and Conditions | VaultSync Zero-Knowledge Protection',
   description: 'VaultSync Terms and Conditions. Our mathematical guarantee: We do NOT have, store, or possess your passwords. True Zero-Knowledge client-side encryption.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsPage() {

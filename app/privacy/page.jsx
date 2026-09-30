@@ -6,6 +6,7 @@ import VaultSyncLogo from '../components/VaultSyncLogo';
 export const metadata = {
   title: 'Privacy Policy | VaultSync Zero-Knowledge Protection',
   description: 'VaultSync Privacy Policy. Your privacy is protected by mathematics: we never see, log, or store your passwords.',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {

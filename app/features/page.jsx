@@ -20,6 +20,7 @@ import VaultSyncLogo from '../components/VaultSyncLogo';
 export const metadata = {
   title: 'Features | VaultSync Zero-Knowledge Password Security',
   description: 'Explore VaultSync features: Zero-Knowledge AES-256 encryption, built-in 2FA TOTP authenticator, active clipboard scrubber, Chrome CSV migration, and security health audits.',
+  alternates: { canonical: '/features' },
 };
 
 export default function FeaturesPage() {
