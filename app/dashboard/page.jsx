@@ -1863,7 +1863,7 @@ export default function DashboardPage() {
 
         {/* Top Action Toolbar */}
         <div className="vault-nav-actions">
-          <button className="vault-btn-primary" onClick={handleOpenAddModal}>
+          <button className="vault-btn-primary" onClick={handleOpenAddModal} title="Add New Item" aria-label="Add Item">
             <Plus size={16} />
             <span>Add Item</span>
           </button>
@@ -1872,6 +1872,7 @@ export default function DashboardPage() {
             className="vault-btn-ghost"
             onClick={() => setIsImportModalOpen(true)}
             title="Import passwords from Google Chrome CSV or JSON"
+            aria-label="Import passwords"
           >
             <Upload size={16} />
             <span>Import</span>
@@ -1881,6 +1882,7 @@ export default function DashboardPage() {
             className="vault-btn-ghost"
             onClick={() => setIsGeneratorModalOpen(true)}
             title="Open Password Generator"
+            aria-label="Password Generator"
           >
             <Sliders size={16} />
             <span>Generator</span>
@@ -1890,6 +1892,7 @@ export default function DashboardPage() {
             className="vault-btn-ghost"
             onClick={() => setIsExportModalOpen(true)}
             title="Export Encrypted Backup"
+            aria-label="Export Backup"
           >
             <Download size={16} />
             <span>Backup</span>
@@ -1899,6 +1902,7 @@ export default function DashboardPage() {
             className="vault-btn-ghost"
             onClick={() => setIsSettingsModalOpen(true)}
             title="Vault Settings & Preferences"
+            aria-label="Settings"
           >
             <Settings size={16} />
             <span>Settings</span>
@@ -1908,6 +1912,7 @@ export default function DashboardPage() {
             className="vault-btn-ghost"
             onClick={handleLockVault}
             title="Lock Vault Instantly (Ctrl+L)"
+            aria-label="Lock Vault"
           >
             <Lock size={16} />
             <span>Lock</span>
@@ -1917,6 +1922,7 @@ export default function DashboardPage() {
             className="vault-btn-logout"
             onClick={handleSignOut}
             title="Sign Out of VaultSync"
+            aria-label="Log Out"
           >
             <LogOut size={16} />
             <span>Logout</span>

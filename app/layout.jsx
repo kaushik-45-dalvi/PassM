@@ -93,6 +93,7 @@ export const viewport = {
   themeColor: '#FAF7EE',
   width: 'device-width',
   initialScale: 1,
+  viewportFit: 'cover',
 };
 
 // Structured Schema.org JSON-LD for Google Rich Results & Golden Star Ratings
@@ -185,8 +186,6 @@ export default function RootLayout({ children }) {
     >
       <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${caveat.variable} ${plusJakartaSans.className}`}>
         <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

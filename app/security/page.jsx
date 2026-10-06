@@ -13,37 +13,16 @@ export default function SecurityPage() {
   return (
     <div style={{ background: '#FAF7EE', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Navigation Header */}
-      <header
-        style={{
-          background: '#FFFFFF',
-          borderBottom: '2.5px solid #000000',
-          padding: '16px 28px',
-          position: 'sticky',
-          top: 0,
-          zIndex: 50
-        }}
-      >
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <header className="subpage-header">
+        <div className="subpage-header-inner">
           <VaultSyncLogo size={32} fontSize="1.25rem" href="/" />
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div className="subpage-header-actions">
             <Link
               href="/"
               prefetch={true}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: '0.86rem',
-                fontWeight: 800,
-                color: '#000000',
-                textDecoration: 'none',
-                padding: '6px 14px',
-                borderRadius: 20,
-                border: '1.5px solid #000000',
-                background: '#FFFFFF',
-                boxShadow: '1.5px 1.5px 0 #000000'
-              }}
+              className="subpage-btn-back"
+              title="Back to Home"
             >
               <ArrowLeft size={14} />
               <span>Back to Home</span>
@@ -51,20 +30,7 @@ export default function SecurityPage() {
             <Link
               href="/dashboard"
               prefetch={true}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: '0.86rem',
-                fontWeight: 800,
-                color: '#000000',
-                textDecoration: 'none',
-                padding: '7px 16px',
-                borderRadius: 20,
-                border: '1.5px solid #000000',
-                background: '#B5F2B7',
-                boxShadow: '2px 2px 0 #000000'
-              }}
+              className="subpage-btn-vault"
             >
               <span>Open Vault &rarr;</span>
             </Link>
