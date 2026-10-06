@@ -99,7 +99,7 @@ export default function VaultSyncLogo({
             lineHeight: 1
           }}
         >
-          VaultSync
+          VaultSyncc
         </span>
       )}
     </div>

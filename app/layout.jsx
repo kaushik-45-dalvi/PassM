@@ -21,13 +21,13 @@ const caveat = Caveat({
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
-  applicationName: 'VaultSync',
+  applicationName: 'VaultSyncc',
   title: {
-    default: 'VaultSync — #1 Zero-Knowledge Encrypted Password Manager & 2FA Authenticator',
-    template: '%s | VaultSync',
+    default: 'VaultSyncc — #1 Zero-Knowledge Encrypted Password Manager & 2FA Authenticator',
+    template: '%s | VaultSyncc',
   },
   description:
-    'VaultSync is the premier zero-knowledge password manager with client-side AES-256-GCM encryption, built-in 2FA TOTP authenticator, 30s clipboard memory scrubber, and 1-click Chrome password migration.',
+    'VaultSyncc is the premier zero-knowledge password manager with client-side AES-256-GCM encryption, built-in 2FA TOTP authenticator, 30s clipboard memory scrubber, and 1-click Chrome password migration.',
   keywords: [
     'best password manager',
     'zero knowledge password manager',
@@ -43,9 +43,9 @@ export const metadata = {
     'vaultsync',
     'mypass'
   ],
-  authors: [{ name: 'VaultSync Security Team', url: siteUrl }],
-  creator: 'VaultSync',
-  publisher: 'VaultSync',
+  authors: [{ name: 'VaultSyncc Security Team', url: siteUrl }],
+  creator: 'VaultSyncc',
+  publisher: 'VaultSyncc',
   alternates: {
     canonical: '/',
   },
@@ -68,14 +68,14 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteUrl,
-    siteName: 'VaultSync',
-    title: 'VaultSync — Zero-Knowledge Encrypted Password Manager',
+    siteName: 'VaultSyncc',
+    title: 'VaultSyncc — Zero-Knowledge Encrypted Password Manager',
     description:
       'Store, organize, and auto-generate high-entropy credentials with client-side AES-256-GCM encryption. Built-in 2FA authenticator & RAM scrubber.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'VaultSync — Zero-Knowledge Encrypted Password Manager',
+    title: 'VaultSyncc — Zero-Knowledge Encrypted Password Manager',
     description:
       'Client-side AES-256-GCM encryption, built-in 2FA TOTP authenticator, and active clipboard memory guard.',
   },
@@ -104,7 +104,7 @@ const structuredData = {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       url: siteUrl,
-      name: 'VaultSync',
+      name: 'VaultSyncc',
       description: 'Zero-Knowledge Encrypted Password Manager & 2FA Authenticator',
       publisher: {
         '@id': `${siteUrl}/#organization`,
@@ -113,7 +113,7 @@ const structuredData = {
     {
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
-      name: 'VaultSync',
+      name: 'VaultSyncc',
       url: siteUrl,
       logo: `${siteUrl}/icon.svg`,
       sameAs: [],
@@ -121,7 +121,7 @@ const structuredData = {
     {
       '@type': 'SoftwareApplication',
       '@id': `${siteUrl}/#software`,
-      name: 'VaultSync',
+      name: 'VaultSyncc',
       operatingSystem: 'Web, Windows, macOS, Linux, iOS, Android',
       applicationCategory: 'SecurityApplication',
       aggregateRating: {
