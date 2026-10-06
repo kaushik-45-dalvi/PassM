@@ -639,6 +639,7 @@ export default function DashboardPage() {
         const canary = await encryptVaultSecret('VAULTSYNC_KEY_VERIFIED', derivedKey);
         saveVerifier(user.id, canary.ciphertext, canary.iv);
 
+        // Mark vault as existing BEFORE loadVaultData runs so state is consistent
         setStoredVerifier(canary.ciphertext);
         setStoredVerifierIv(canary.iv);
         setHasExistingVault(true);
@@ -760,7 +761,9 @@ export default function DashboardPage() {
         if (isCancelled) return;
 
         const hasVault = Boolean(data.hasMasterPassword || (data.items && data.items.length > 0) || data.verifier);
+        // Set hasExistingVault FIRST so the UI always shows the right screen when the overlay appears
         setHasExistingVault(hasVault);
+        setIsSetupMode(!hasVault);
         if (data.verifier) setStoredVerifier(data.verifier);
         if (data.verifier_iv) setStoredVerifierIv(data.verifier_iv);
         if (data.source) setCloudSyncSource(data.source);
@@ -772,18 +775,20 @@ export default function DashboardPage() {
             setCryptoKey(activeKey);
             setIsVaultLocked(false);
             setIsSetupMode(false);
+            setHasExistingVault(true);
             return;
           } else {
             sessionStorage.removeItem('vaultsync_active_key_' + user.id);
           }
         }
 
-        // Lock screen: if vault exists, ALWAYS show unlock mode (never setup mode)
+        // Lock screen: vault locked, show correct screen based on vault existence
         setIsVaultLocked(true);
-        setIsSetupMode(!hasVault);
       } catch (err) {
         console.error('Init vault error:', err);
+        // On error, default to showing lock screen in create mode (safe fallback)
         setIsVaultLocked(true);
+        setHasExistingVault(false);
         setIsSetupMode(true);
       } finally {
         if (!isCancelled) {
@@ -2809,7 +2814,8 @@ export default function DashboardPage() {
       </main>
 
       {/* MASTER PASSWORD ZERO-KNOWLEDGE UNLOCK / SETUP SCREEN */}
-      {isVaultLocked && (
+      {/* Only show after vault status check completes — prevents wrong screen flash on load */}
+      {isVaultLocked && !isCheckingVaultStatus && (
         <div className="vault-lock-overlay">
           <div className="vault-lock-card">
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
