@@ -13,7 +13,7 @@ export function VaultSyncLogoIcon({ size = 32, className = '', style = {} }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{ display: 'inline-block', flexShrink: 0, verticalAlign: 'middle', ...style }}
-      aria-label="VaultSync Shield Padlock Symbol"
+      aria-label="VaultSyncc Shield Padlock Symbol"
     >
       {/* Outer Mint Shield / Badge Body with Bold Black Border */}
       <path

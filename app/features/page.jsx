@@ -18,8 +18,8 @@ import Footer from '../components/Footer';
 import VaultSyncLogo from '../components/VaultSyncLogo';
 
 export const metadata = {
-  title: 'Features | VaultSync Zero-Knowledge Password Security',
-  description: 'Explore VaultSync features: Zero-Knowledge AES-256 encryption, built-in 2FA TOTP authenticator, active clipboard scrubber, Chrome CSV migration, and security health audits.',
+  title: 'Features | VaultSyncc Zero-Knowledge Password Security',
+  description: 'Explore VaultSyncc features: Zero-Knowledge AES-256 encryption, built-in 2FA TOTP authenticator, active clipboard scrubber, Chrome CSV migration, and security health audits.',
   alternates: { canonical: '/features' },
 };
 
@@ -41,7 +41,7 @@ export default function FeaturesPage() {
       icon: <Zap size={26} color="#DC2626" />,
       tag: 'Active RAM Guard',
       title: '30-Second Clipboard Memory Scrubber',
-      desc: 'Operating systems preserve copied credentials in clipboard history indefinitely. VaultSync actively purges passwords and 2FA tokens from memory after 30 seconds.'
+      desc: 'Operating systems preserve copied credentials in clipboard history indefinitely. VaultSyncc actively purges passwords and 2FA tokens from memory after 30 seconds.'
     },
     {
       icon: <Upload size={26} color="#000000" />,
@@ -65,13 +65,13 @@ export default function FeaturesPage() {
       icon: <History size={26} color="#7C3AED" />,
       tag: 'Version Control',
       title: 'Encrypted Password History & Rollback',
-      desc: 'Accidentally update a password? VaultSync cryptographically preserves previous password versions so you can restore prior credentials anytime.'
+      desc: 'Accidentally update a password? VaultSyncc cryptographically preserves previous password versions so you can restore prior credentials anytime.'
     },
     {
       icon: <Sliders size={26} color="#059669" />,
       tag: 'Customizable Keys',
       title: 'Dual-Mode Password Creation',
-      desc: 'Freely create and customize your own passwords with real-time entropy feedback, or tap into VaultSync’s pure Web Crypto random password generator.'
+      desc: 'Freely create and customize your own passwords with real-time entropy feedback, or tap into VaultSyncc’s pure Web Crypto random password generator.'
     }
   ];
 

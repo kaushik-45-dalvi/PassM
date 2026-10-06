@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsync.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsyncc.vercel.app';
   const lastModified = new Date();
 
   return [

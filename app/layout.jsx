@@ -2,7 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 import { Plus_Jakarta_Sans, Caveat } from 'next/font/google';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsync.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsyncc.vercel.app';
 const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '';
 
 const plusJakartaSans = Plus_Jakarta_Sans({

@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: 'How secure is VaultSync?',
-    a: 'VaultSync is built on a Zero-Knowledge architecture. Your passwords and private notes are encrypted directly in your browser with AES-256-GCM and PBKDF2 (100,000 rounds) before they are sent to the cloud. Only you have the key.',
+    a: 'VaultSyncc is built on a Zero-Knowledge architecture. Your passwords and private notes are encrypted directly in your browser with AES-256-GCM and PBKDF2 (100,000 rounds) before they are sent to the cloud. Only you have the key.',
   },
   {
     q: 'Can I use VaultSync on multiple devices?',
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'What happens if I forget my master password?',
-    a: 'Because VaultSync is zero-knowledge, your master password is never stored or transmitted to our servers. Keep it memorized or written down in a safe location: without it, your encrypted secrets cannot be decrypted by anyone.',
+    a: 'Because VaultSyncc is zero-knowledge, your master password is never stored or transmitted to our servers. Keep it memorized or written down in a safe location: without it, your encrypted secrets cannot be decrypted by anyone.',
   },
   {
     q: 'Can I export or backup my passwords?',

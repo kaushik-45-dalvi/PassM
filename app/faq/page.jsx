@@ -24,7 +24,7 @@ export default function FAQPage() {
   const faqs = [
     {
       q: 'Does VaultSync or anyone on your team have access to my passwords?',
-      a: 'Absolutely not. VaultSync is built strictly on a mathematical Zero-Knowledge architecture. Your master password derives a 256-bit encryption key on your device using PBKDF2 (100,000 iterations). All passwords, notes, and 2FA seeds are encrypted with AES-256-GCM locally in your browser before being transmitted to our database. We never receive, log, or store your master password or unencrypted passwords.'
+      a: 'Absolutely not. VaultSyncc is built strictly on a mathematical Zero-Knowledge architecture. Your master password derives a 256-bit encryption key on your device using PBKDF2 (100,000 iterations). All passwords, notes, and 2FA seeds are encrypted with AES-256-GCM locally in your browser before being transmitted to our database. We never receive, log, or store your master password or unencrypted passwords.'
     },
     {
       q: 'Can I create and use my own passwords, or do I have to use generated ones?',
@@ -36,11 +36,11 @@ export default function FAQPage() {
     },
     {
       q: 'What if I forget my Master Password? Can support reset it for me?',
-      a: 'Because we operate on a strict Zero-Knowledge model, we do not know your master password and have no backdoor to reset it. To protect you against accidental lockout, VaultSync provides a printable offline Emergency Recovery Sheet in your dashboard. Print it out or write it down, and store it in a secure physical location (such as a home safe).'
+      a: 'Because we operate on a strict Zero-Knowledge model, we do not know your master password and have no backdoor to reset it. To protect you against accidental lockout, VaultSyncc provides a printable offline Emergency Recovery Sheet in your dashboard. Print it out or write it down, and store it in a secure physical location (such as a home safe).'
     },
     {
       q: 'Why is VaultSync safer than Google Chrome’s built-in password manager?',
-      a: 'Google Chrome stores your credentials tied directly to your active Google profile session. Anyone with physical access to your laptop, or any rogue browser extension with broad permissions, can inspect your saved passwords in clear text. VaultSync enforces dedicated master key protection, auto-lock timeouts, client-side AES-256-GCM encryption, a built-in 2FA TOTP generator, and an active 30-second OS clipboard memory scrubber.'
+      a: 'Google Chrome stores your credentials tied directly to your active Google profile session. Anyone with physical access to your laptop, or any rogue browser extension with broad permissions, can inspect your saved passwords in clear text. VaultSyncc enforces dedicated master key protection, auto-lock timeouts, client-side AES-256-GCM encryption, a built-in 2FA TOTP generator, and an active 30-second OS clipboard memory scrubber.'
     },
     {
       q: 'Can I migrate my passwords from Google Chrome, 1Password, or Bitwarden?',
@@ -122,7 +122,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p style={{ fontSize: '1rem', color: '#475569', maxWidth: 620, margin: '0 auto', lineHeight: 1.6 }}>
-            Everything you need to know about VaultSync's zero-knowledge cryptography, password creation, safety guarantees, and account privacy.
+            Everything you need to know about VaultSyncc's zero-knowledge cryptography, password creation, safety guarantees, and account privacy.
           </p>
         </div>
 
@@ -157,7 +157,7 @@ export default function FAQPage() {
           </div>
           <div>
             <strong style={{ fontSize: '1.05rem', color: '#000000', display: 'block', fontWeight: 900 }}>
-              The Golden Rule of VaultSync
+              The Golden Rule of VaultSyncc
             </strong>
             <span style={{ fontSize: '0.90rem', color: '#334155', lineHeight: 1.5, display: 'block', marginTop: 3 }}>
               We do not know your master password, we cannot decrypt your secrets, and we have zero access to your stored credentials. Your privacy is guaranteed by mathematics.

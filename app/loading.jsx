@@ -65,7 +65,7 @@ export default function Loading() {
           opacity: 0.75
         }}
       >
-        VaultSync
+        VaultSyncc
       </div>
 
       <style>{`

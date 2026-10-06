@@ -12,7 +12,7 @@ export const runtime = 'edge';
 
 export async function GET() {
   return NextResponse.json({
-    message: 'VaultSync uses zero-knowledge client-side storage. Vault data is stored in your browser and never touches our servers.',
+    message: 'VaultSyncc uses zero-knowledge client-side storage. Vault data is stored in your browser and never touches our servers.',
     architecture: 'client-side-only'
   });
 }

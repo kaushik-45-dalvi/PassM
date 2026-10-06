@@ -1,7 +1,7 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsync.vercel.app';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultsyncc.vercel.app';
 
 export const metadata = {
-  title: 'Frequently Asked Questions (FAQ) | VaultSync Zero-Knowledge Password Vault',
+  title: 'Frequently Asked Questions (FAQ) | VaultSyncc Zero-Knowledge Password Vault',
   description: 'Common questions about VaultSync: Zero-Knowledge encryption, master passwords, Chrome password import, built-in 2FA authenticator, and emergency recovery sheets.',
   alternates: {
     canonical: '/faq',
@@ -22,7 +22,7 @@ const faqSchema = {
       name: 'Does VaultSync or anyone on your team have access to my passwords?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. VaultSync is built strictly on a mathematical Zero-Knowledge architecture. Your master password derives a 256-bit encryption key on your device using PBKDF2 (100,000 iterations). All passwords, notes, and 2FA seeds are encrypted with AES-256-GCM locally in your browser before being stored. We never receive or store your master password or unencrypted credentials.',
+        text: 'No. VaultSyncc is built strictly on a mathematical Zero-Knowledge architecture. Your master password derives a 256-bit encryption key on your device using PBKDF2 (100,000 iterations). All passwords, notes, and 2FA seeds are encrypted with AES-256-GCM locally in your browser before being stored. We never receive or store your master password or unencrypted credentials.',
       },
     },
     {
@@ -46,7 +46,7 @@ const faqSchema = {
       name: 'Why is VaultSync safer than Google Chrome’s built-in password manager?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Google Chrome stores credentials accessible to anyone with physical device access or rogue extensions. VaultSync enforces master key authentication, auto-lock timeouts, client-side AES-256-GCM encryption, built-in 2FA TOTP authenticator, and an active 30-second OS clipboard memory scrubber.',
+        text: 'Google Chrome stores credentials accessible to anyone with physical device access or rogue extensions. VaultSyncc enforces master key authentication, auto-lock timeouts, client-side AES-256-GCM encryption, built-in 2FA TOTP authenticator, and an active 30-second OS clipboard memory scrubber.',
       },
     },
   ],

@@ -8,7 +8,7 @@ const DEMO_ITEMS = [
   {
     id: 'demo-1',
     name: 'Netflix',
-    username: 'alex@vaultsync.app',
+    username: 'alex@vaultsyncc.app',
     password: 'pW*9xK#mQ2vL$8tR',
     category: 'Entertainment',
     url: 'netflix.com',
@@ -32,7 +32,7 @@ const DEMO_ITEMS = [
   {
     id: 'demo-4',
     name: 'Google',
-    username: 'alex@vaultsync.app',
+    username: 'alex@vaultsyncc.app',
     password: 'G00gle_S3cur3!99',
     category: 'Logins',
     url: 'google.com',

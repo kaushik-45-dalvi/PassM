@@ -243,7 +243,7 @@ export default function Hero({ onOpenVault, onOpenDemo, showToast }) {
                   )}
                 </button>
               </div>
-              <div className="account-email-subtext">alex@vaultsync.app</div>
+              <div className="account-email-subtext">alex@vaultsyncc.app</div>
             </div>
 
             <button 

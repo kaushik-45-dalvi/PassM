@@ -2,7 +2,7 @@
 
 ## 1. System Overview & Trust Boundaries
 
-VaultSync operates on an **End-to-End Zero-Knowledge Trust Boundary**. The boundary divides the system into two distinct operational domains:
+VaultSyncc operates on an **End-to-End Zero-Knowledge Trust Boundary**. The boundary divides the system into two distinct operational domains:
 
 1. **Client Trust Zone (In-Browser Web Crypto Context)**:
    - Plaintext master passwords, decrypted credentials, raw TOTP secrets, and derived cryptographic keys exist **only** inside ephemeral browser memory (JavaScript heap & `SubtleCrypto` handles).

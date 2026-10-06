@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'VaultSync — Zero-Knowledge Password Manager';
+export const alt = 'VaultSyncc — Zero-Knowledge Password Manager';
 export const size = {
   width: 1200,
   height: 630,
@@ -43,7 +43,7 @@ export default async function Image() {
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           </svg>
           <span style={{ fontSize: '20px', fontWeight: 900, color: '#000000', letterSpacing: '-0.02em' }}>
-            VAULTSYNC • ZERO-KNOWLEDGE AES-256
+            VAULTSYNCC • ZERO-KNOWLEDGE AES-256
           </span>
         </div>
 

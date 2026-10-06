@@ -4,8 +4,8 @@ import Footer from '../components/Footer';
 import VaultSyncLogo from '../components/VaultSyncLogo';
 
 export const metadata = {
-  title: 'Privacy Policy | VaultSync Zero-Knowledge Protection',
-  description: 'VaultSync Privacy Policy. Your privacy is protected by mathematics: we never see, log, or store your passwords.',
+  title: 'Privacy Policy | VaultSyncc Zero-Knowledge Protection',
+  description: 'VaultSyncc Privacy Policy. Your privacy is protected by mathematics: we never see, log, or store your passwords.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -145,7 +145,7 @@ export default function PrivacyPage() {
               1. Mathematical Zero-Knowledge Architecture
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              VaultSync uses client-side encryption powered by the standardized Web Cryptography API. When you create or update a password, your device encrypts the payload using an AES-256-GCM key derived from your master password with PBKDF2 (100,000 iterations). Only the resulting ciphertext and a unique initialization vector are transmitted to the vault API. VaultSync administrators, developers, and infrastructure partners cannot view or decrypt your records.
+              VaultSyncc uses client-side encryption powered by the standardized Web Cryptography API. When you create or update a password, your device encrypts the payload using an AES-256-GCM key derived from your master password with PBKDF2 (100,000 iterations). Only the resulting ciphertext and a unique initialization vector are transmitted to the vault API. VaultSync administrators, developers, and infrastructure partners cannot view or decrypt your records.
             </p>
           </section>
 

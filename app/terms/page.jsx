@@ -5,8 +5,8 @@ import Footer from '../components/Footer';
 import VaultSyncLogo from '../components/VaultSyncLogo';
 
 export const metadata = {
-  title: 'Terms and Conditions | VaultSync Zero-Knowledge Protection',
-  description: 'VaultSync Terms and Conditions. Our mathematical guarantee: We do NOT have, store, or possess your passwords. True Zero-Knowledge client-side encryption.',
+  title: 'Terms and Conditions | VaultSyncc Zero-Knowledge Protection',
+  description: 'VaultSyncc Terms and Conditions. Our mathematical guarantee: We do NOT have, store, or possess your passwords. True Zero-Knowledge client-side encryption.',
   alternates: { canonical: '/terms' },
 };
 
@@ -128,13 +128,13 @@ export default function TermsPage() {
             <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
               <Lock size={22} color="#854D0E" style={{ flexShrink: 0, marginTop: 2 }} />
               <div style={{ fontSize: '0.94rem', color: '#713F12', lineHeight: 1.6 }}>
-                <strong>Why You Can Trust VaultSync With 100% Confidence:</strong> When you store passwords in VaultSync, you are not trusting a company or an employee. You are trusting <strong>unbreakable mathematics</strong>. Your master password never leaves your browser. All encryption happens on your machine using <strong>AES-256-GCM</strong>. Even if a court issues a subpoena or our databases are compromised, nobody can decrypt your vault because <strong>we do not possess your key</strong>.
+                <strong>Why You Can Trust VaultSyncc With 100% Confidence:</strong> When you store passwords in VaultSyncc, you are not trusting a company or an employee. You are trusting <strong>unbreakable mathematics</strong>. Your master password never leaves your browser. All encryption happens on your machine using <strong>AES-256-GCM</strong>. Even if a court issues a subpoena or our databases are compromised, nobody can decrypt your vault because <strong>we do not possess your key</strong>.
               </div>
             </div>
           </div>
 
           <p style={{ fontSize: '0.94rem', color: '#1E293B', lineHeight: 1.7, marginBottom: 20 }}>
-            Unlike standard web applications or legacy browser managers, <strong>VaultSync is built as a true Zero-Knowledge cryptographic vault</strong>. All encryption and decryption operations take place locally on your computer or phone using client-side <strong>AES-256-GCM</strong> with <strong>PBKDF2 key derivation (100,000 rounds)</strong>. 
+            Unlike standard web applications or legacy browser managers, <strong>VaultSyncc is built as a true Zero-Knowledge cryptographic vault</strong>. All encryption and decryption operations take place locally on your computer or phone using client-side <strong>AES-256-GCM</strong> with <strong>PBKDF2 key derivation (100,000 rounds)</strong>. 
           </p>
 
           <div
@@ -205,7 +205,7 @@ export default function TermsPage() {
                 <tr style={{ background: '#000000', color: '#FFFFFF' }}>
                   <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 800 }}>Trust Dimension</th>
                   <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 800 }}>Chrome / Browser Managers</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 800, background: '#16A34A', color: '#FFFFFF' }}>VaultSync Zero-Knowledge</th>
+                  <th style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 800, background: '#16A34A', color: '#FFFFFF' }}>VaultSyncc Zero-Knowledge</th>
                 </tr>
               </thead>
               <tbody>
@@ -220,7 +220,7 @@ export default function TermsPage() {
                   <td style={{ padding: '10px 14px', fontWeight: 700, color: '#15803D' }}>Client-Side only (PBKDF2 100k rounds)</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid #E2E8F0', background: '#FFFFFF' }}>
-                  <td style={{ padding: '10px 14px', fontWeight: 700 }}>Can VaultSync Read Passwords?</td>
+                  <td style={{ padding: '10px 14px', fontWeight: 700 }}>Can VaultSyncc Read Passwords?</td>
                   <td style={{ padding: '10px 14px', color: '#DC2626' }}>Cloud providers hold decryption capability</td>
                   <td style={{ padding: '10px 14px', fontWeight: 700, color: '#15803D' }}>IMPOSSIBLE. Zero-Knowledge architecture</td>
                 </tr>
@@ -253,7 +253,7 @@ export default function TermsPage() {
               <span>1. Agreement & Acceptance</span>
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              By accessing, creating an account with, or utilizing VaultSync ("the Service"), you agree to be bound by these Terms and Conditions. If you do not agree with any provision of these terms, you must discontinue using the Service immediately. VaultSync is provided solely for lawful credential management and personal or organizational password security.
+              By accessing, creating an account with, or utilizing VaultSyncc ("the Service"), you agree to be bound by these Terms and Conditions. If you do not agree with any provision of these terms, you must discontinue using the Service immediately. VaultSyncc is provided solely for lawful credential management and personal or organizational password security.
             </p>
           </section>
 
@@ -265,17 +265,17 @@ export default function TermsPage() {
               2. Zero-Knowledge Cryptography & Absolute Privacy
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, marginBottom: 12 }}>
-              VaultSync is engineered from the ground up to uphold the highest level of cryptographic sovereignty:
+              VaultSyncc is engineered from the ground up to uphold the highest level of cryptographic sovereignty:
             </p>
             <ul style={{ paddingLeft: 20, fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, display: 'flex', flexDirection: 'column', gap: 8 }}>
               <li>
                 <strong>Client-Side Encryption:</strong> Your master password derives an AES-256 cryptographic key on your device using PBKDF2 with 100,000 hashing rounds and SHA-256. Passwords, secret notes, 2FA authenticator seeds, and history entries are encrypted before transmission.
               </li>
               <li>
-                <strong>No Server-Side Plaintext:</strong> VaultSync servers, database administrators, and automated background jobs NEVER receive, inspect, log, or store your master password or unencrypted vault contents.
+                <strong>No Server-Side Plaintext:</strong> VaultSyncc servers, database administrators, and automated background jobs NEVER receive, inspect, log, or store your master password or unencrypted vault contents.
               </li>
               <li>
-                <strong>Third-Party Disclosures:</strong> Because VaultSync does not possess the cryptographic keys needed to unlock your vault, we cannot disclose your plaintext records to any third party, regulatory body, or law enforcement agency.
+                <strong>Third-Party Disclosures:</strong> Because VaultSyncc does not possess the cryptographic keys needed to unlock your vault, we cannot disclose your plaintext records to any third party, regulatory body, or law enforcement agency.
               </li>
             </ul>
           </section>
@@ -288,7 +288,7 @@ export default function TermsPage() {
               3. Master Password Responsibility & Account Recovery
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, marginBottom: 14 }}>
-              Because VaultSync operates with strict Zero-Knowledge security, <strong>we cannot reset or recover your master password if you lose it</strong>. You explicitly acknowledge and agree that:
+              Because VaultSynccc operates with strict Zero-Knowledge security, <strong>we cannot reset or recover your master password if you lose it</strong>. You explicitly acknowledge and agree that:
             </p>
             <div
               style={{
@@ -316,7 +316,7 @@ export default function TermsPage() {
               4. Built-in Security Tools (2FA TOTP & Active Clipboard Guard)
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              VaultSync provides an integrated RFC 6238 two-factor authentication (TOTP) generator and an active 30-second operating system clipboard memory scrubber. While these mechanisms are engineered according to industry best practices, you are responsible for maintaining device-level security, including keeping your operating system and web browser free of malware, keyloggers, and unauthorized browser extensions.
+              VaultSyncc provides an integrated RFC 6238 two-factor authentication (TOTP) generator and an active 30-second operating system clipboard memory scrubber. While these mechanisms are engineered according to industry best practices, you are responsible for maintaining device-level security, including keeping your operating system and web browser free of malware, keyloggers, and unauthorized browser extensions.
             </p>
           </section>
 
@@ -328,7 +328,7 @@ export default function TermsPage() {
               5. Ownership and Portability of Your Data
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              You retain all right, title, and interest in and to any credentials and information you store in VaultSync. We do not claim any ownership over your content. You may export your decrypted credentials at any time in standardized formats (such as encrypted backup or plain JSON/CSV), or delete individual items or your entire account with immediate, irrevocable effect.
+              You retain all right, title, and interest in and to any credentials and information you store in VaultSyncc. We do not claim any ownership over your content. You may export your decrypted credentials at any time in standardized formats (such as encrypted backup or plain JSON/CSV), or delete individual items or your entire account with immediate, irrevocable effect.
             </p>
           </section>
 
@@ -340,7 +340,7 @@ export default function TermsPage() {
               6. Limitation of Liability & Warranties
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              The Service is provided on an "as-is" and "as-available" basis without warranties of any kind, whether express or implied. To the maximum extent permitted by applicable law, VaultSync and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, or credentials resulting from user error, forgotten master passwords, or compromised client devices.
+              The Service is provided on an "as-is" and "as-available" basis without warranties of any kind, whether express or implied. To the maximum extent permitted by applicable law, VaultSyncc and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits, data, or credentials resulting from user error, forgotten master passwords, or compromised client devices.
             </p>
           </section>
 
@@ -352,7 +352,7 @@ export default function TermsPage() {
               7. Contact and Security Inquiries
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.7, margin: 0 }}>
-              For legal inquiries, terms clarification, or responsible vulnerability disclosure, please reach out to our team at <strong>security@vaultsync.app</strong>.
+              For legal inquiries, terms clarification, or responsible vulnerability disclosure, please reach out to our team at <strong>security@vaultsyncc.app</strong>.
             </p>
           </section>
         </div>

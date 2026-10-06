@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import VaultSyncLogo from '../components/VaultSyncLogo';
 
 export const metadata = {
-  title: 'Security Architecture | VaultSync Zero-Knowledge',
+  title: 'Security Architecture | VaultSyncc Zero-Knowledge',
   description: 'Technical security specifications: PBKDF2 100,000 rounds, AES-256-GCM encryption, RFC 6238 TOTP authenticator, and active OS clipboard protection.',
   alternates: { canonical: '/security' },
 };
@@ -71,7 +71,7 @@ export default function SecurityPage() {
             Security is Our Architecture, Not an Afterthought
           </h1>
           <p style={{ fontSize: '1rem', color: '#475569', maxWidth: 680, margin: '0 auto', lineHeight: 1.6 }}>
-            VaultSync enforces a strict mathematical separation between your private decryption keys and our cloud database. Here is how your credentials are protected under the hood.
+            VaultSyncc enforces a strict mathematical separation between your private decryption keys and our cloud database. Here is how your credentials are protected under the hood.
           </p>
         </div>
 
@@ -184,7 +184,7 @@ export default function SecurityPage() {
               <strong>Key Derivation:</strong> When you enter your master password, your device executes `crypto.subtle.deriveKey()` with PBKDF2 (100,000 iterations). The resulting `CryptoKey` object is non-extractable and held only in volatile browser memory.
             </li>
             <li>
-              <strong>Canary Verifier:</strong> To ensure you entered the correct master password without ever storing the password itself, VaultSync verifies a canary ciphertext (`VAULTSYNC_KEY_VERIFIED`). If it decrypts cleanly, the key is confirmed; if not, decryption halts locally.
+              <strong>Canary Verifier:</strong> To ensure you entered the correct master password without ever storing the password itself, VaultSyncc verifies a canary ciphertext (`VAULTSYNC_KEY_VERIFIED`). If it decrypts cleanly, the key is confirmed; if not, decryption halts locally.
             </li>
             <li>
               <strong>Payload Encryption:</strong> Plaintext passwords, 2FA secret keys, and encrypted history items are packaged into a JSON payload and encrypted with AES-256-GCM.
